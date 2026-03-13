@@ -717,15 +717,34 @@ window.addEventListener('scroll',()=>{ updProg(); updNav(); parallax(); updateHs
 updateHscroll(); blendCanvases();
 
 // ── CTA ───────────────────────────────────────────────
-function handleCta(){
+async function handleCta(){
   const inp=document.getElementById('cta-email');
-  if(inp.value&&inp.value.includes('@')){
-    inp.value=''; inp.placeholder='✓ We nemen snel contact op!';
-    inp.style.borderColor='rgba(240,237,232,.3)';
-  } else {
+  const btn=document.querySelector('.cta-btn');
+  if(!inp.value||!inp.value.includes('@')){
     inp.style.borderColor='rgba(255,100,100,.5)';
     inp.style.animation='shake .4s ease';
     setTimeout(()=>{ inp.style.borderColor=''; inp.style.animation=''; },1500);
+    return;
+  }
+  btn.textContent='Versturen...';
+  btn.disabled=true;
+  try {
+    const res=await fetch('https://formspree.io/f/xdawdnnz',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({email:inp.value})
+    });
+    if(res.ok){
+      inp.value=''; inp.placeholder='✓ We nemen snel contact op!';
+      inp.style.borderColor='rgba(240,237,232,.3)';
+      btn.textContent='Verzonden ✓';
+    } else {
+      btn.textContent='Probeer opnieuw';
+      btn.disabled=false;
+    }
+  } catch(e){
+    btn.textContent='Probeer opnieuw';
+    btn.disabled=false;
   }
 }
 </script>
