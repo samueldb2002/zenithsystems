@@ -182,14 +182,17 @@ nav.scrolled{background:rgba(6,6,6,.75);backdrop-filter:blur(24px);border-bottom
 /* SR-ONLY */
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}
 
-/* MOCK LOGOS */
-.mock-logo{font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:2px;color:var(--m2);font-size:13px;}
-.marq-logo{height:28px;width:auto;display:block;object-fit:contain;opacity:.65;transition:opacity .3s;}
-.marquee-track:hover .marq-logo{opacity:.9;}
-.marq-logo-screen{mix-blend-mode:screen;filter:grayscale(1) brightness(2);}
-.marq-logo-inv{filter:grayscale(1) invert(1) brightness(1.4);}
-.marq-logo-svg{height:22px;filter:opacity(.65);transition:filter .3s;}
-.marquee-track:hover .marq-logo-svg{filter:opacity(.9);}
+/* CLIENT LOGOS */
+.client-logos{display:flex;align-items:center;justify-content:center;gap:72px;flex-wrap:wrap;padding:0 48px;}
+.client-logo-item{display:flex;align-items:center;justify-content:center;}
+.cl-img{height:48px;width:auto;display:block;object-fit:contain;transition:opacity .3s;}
+.cl-wall{filter:grayscale(1) contrast(8);mix-blend-mode:screen;opacity:.8;}
+.cl-wall:hover{opacity:1;}
+.cl-hans{filter:grayscale(1) invert(1) brightness(1.2);opacity:.75;}
+.cl-hans:hover{opacity:1;}
+.cl-svg{height:38px;opacity:.7;transition:opacity .3s;}
+.cl-svg:hover{opacity:1;}
+@media(max-width:768px){.client-logos{gap:40px;padding:0 20px;}.cl-img{height:36px;}.cl-svg{height:28px;}}
 
 /* CASE STUDY */
 .case-section{position:relative;z-index:2;border-bottom:1px solid var(--b);padding:120px 48px;}
@@ -450,22 +453,19 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
   </div>
 </div>
 
-<!-- MARQUEE -->
+<!-- CLIENTS -->
 <div class="marquee-wrap">
   <div class="marquee-label">Geselecteerde klanten.</div>
-  <div class="marquee-track" id="marquee">
-    <div class="marq-item"><img src="logo-thewall.png" alt="The Wall" class="marq-logo marq-logo-screen"/></div>
-    <div class="marq-item"><img src="logo-hans.webp" alt="Hans" class="marq-logo marq-logo-inv"/></div>
-    <div class="marq-item"><img src="logo-renessence.svg" alt="Renessence" class="marq-logo marq-logo-svg"/></div>
-    <div class="marq-item"><span class="mock-logo">ARCTIQ</span></div>
-    <div class="marq-item"><span class="mock-logo">VELTRO</span></div>
-    <div class="marq-item"><span class="mock-logo">NOREX</span></div>
-    <div class="marq-item"><img src="logo-thewall.png" alt="The Wall" class="marq-logo marq-logo-screen"/></div>
-    <div class="marq-item"><img src="logo-hans.webp" alt="Hans" class="marq-logo marq-logo-inv"/></div>
-    <div class="marq-item"><img src="logo-renessence.svg" alt="Renessence" class="marq-logo marq-logo-svg"/></div>
-    <div class="marq-item"><span class="mock-logo">ARCTIQ</span></div>
-    <div class="marq-item"><span class="mock-logo">VELTRO</span></div>
-    <div class="marq-item"><span class="mock-logo">NOREX</span></div>
+  <div class="client-logos">
+    <div class="client-logo-item">
+      <img src="logo-thewall.png" alt="The Wall" class="cl-img cl-wall"/>
+    </div>
+    <div class="client-logo-item">
+      <img src="logo-hans.webp" alt="Hans" class="cl-img cl-hans"/>
+    </div>
+    <div class="client-logo-item">
+      <img src="logo-renessence.svg" alt="Renessence" class="cl-svg"/>
+    </div>
   </div>
 </div>
 
