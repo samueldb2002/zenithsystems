@@ -12,7 +12,8 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 :root{--bg:#060606;--fg:#f0ede8;--acc:#f0ede8;--m:#555;--m2:#888;--b:rgba(240,237,232,.07);--b2:rgba(240,237,232,.13);}
 html{scroll-behavior:auto;}
-body{background:var(--bg);color:var(--fg);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;overflow-x:hidden;cursor:none;line-height:1.6;}
+body{background:var(--bg);color:var(--fg);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;cursor:none;line-height:1.6;}
+#wrapper{overflow-x:hidden;}
 ::selection{background:var(--fg);color:var(--bg);}
 
 /* GRAIN */
@@ -40,7 +41,7 @@ body.hov-inv #cr{border-color:rgba(6,6,6,.3);}
 @keyframes scFade{0%{opacity:.75;transform:translate(-50%,-50%) scale(1);}100%{opacity:0;transform:translate(-50%,calc(-50% - 20px)) scale(.65);}}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:500;height:64px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,border-color .4s;}
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:64px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,border-color .4s;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);}
 nav.scrolled{background:rgba(6,6,6,.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--b);}
 .nl{text-decoration:none;display:inline-flex;align-items:center;}
 .nl img{height:28px;width:auto;display:block;}
@@ -267,7 +268,8 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
   .nl img{height:22px;}
   #c,#cr{display:none;}
   .hero{padding:80px 20px 56px;}
-  .hero-headline h1{letter-spacing:-2px;}
+  .hero-headline h1{letter-spacing:-2px;font-size:clamp(42px,11vw,66px);}
+  .rotating-line{white-space:nowrap;}
   .hero-eyebrow{margin-bottom:20px;}
   .het{font-size:9px;letter-spacing:2px;}
   .hero-bottom{margin-top:32px;gap:24px;}
@@ -298,6 +300,7 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
 </head>
 <body>
 
+<div id="wrapper">
 <div id="prog"></div>
 <div id="c"></div>
 <div id="cr"></div>
@@ -929,5 +932,6 @@ async function handleCtaFull(event){
 <style>
 @keyframes shake{0%,100%{transform:none}20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
 </style>
+</div><!-- /#wrapper -->
 </body>
 </html>
