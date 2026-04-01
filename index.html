@@ -184,6 +184,12 @@ nav.scrolled{background:rgba(6,6,6,.75);backdrop-filter:blur(24px);border-bottom
 
 /* MOCK LOGOS */
 .mock-logo{font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:2px;color:var(--m2);font-size:13px;}
+.marq-logo{height:28px;width:auto;display:block;object-fit:contain;opacity:.65;transition:opacity .3s;}
+.marquee-track:hover .marq-logo{opacity:.9;}
+.marq-logo-screen{mix-blend-mode:screen;filter:grayscale(1) brightness(2);}
+.marq-logo-inv{filter:grayscale(1) invert(1) brightness(1.4);}
+.marq-logo-svg{height:22px;filter:opacity(.65);transition:filter .3s;}
+.marquee-track:hover .marq-logo-svg{filter:opacity(.9);}
 
 /* CASE STUDY */
 .case-section{position:relative;z-index:2;border-bottom:1px solid var(--b);padding:120px 48px;}
@@ -448,22 +454,18 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
 <div class="marquee-wrap">
   <div class="marquee-label">Geselecteerde klanten.</div>
   <div class="marquee-track" id="marquee">
+    <div class="marq-item"><img src="logo-thewall.png" alt="The Wall" class="marq-logo marq-logo-screen"/></div>
+    <div class="marq-item"><img src="logo-hans.webp" alt="Hans" class="marq-logo marq-logo-inv"/></div>
+    <div class="marq-item"><img src="logo-renessence.svg" alt="Renessence" class="marq-logo marq-logo-svg"/></div>
     <div class="marq-item"><span class="mock-logo">ARCTIQ</span></div>
     <div class="marq-item"><span class="mock-logo">VELTRO</span></div>
     <div class="marq-item"><span class="mock-logo">NOREX</span></div>
-    <div class="marq-item"><span class="mock-logo">SOLVEN</span></div>
-    <div class="marq-item"><span class="mock-logo">KAIROS</span></div>
-    <div class="marq-item"><span class="mock-logo">FLUXIO</span></div>
-    <div class="marq-item"><span class="mock-logo">DYNORA</span></div>
-    <div class="marq-item"><span class="mock-logo">CADENCE</span></div>
+    <div class="marq-item"><img src="logo-thewall.png" alt="The Wall" class="marq-logo marq-logo-screen"/></div>
+    <div class="marq-item"><img src="logo-hans.webp" alt="Hans" class="marq-logo marq-logo-inv"/></div>
+    <div class="marq-item"><img src="logo-renessence.svg" alt="Renessence" class="marq-logo marq-logo-svg"/></div>
     <div class="marq-item"><span class="mock-logo">ARCTIQ</span></div>
     <div class="marq-item"><span class="mock-logo">VELTRO</span></div>
     <div class="marq-item"><span class="mock-logo">NOREX</span></div>
-    <div class="marq-item"><span class="mock-logo">SOLVEN</span></div>
-    <div class="marq-item"><span class="mock-logo">KAIROS</span></div>
-    <div class="marq-item"><span class="mock-logo">FLUXIO</span></div>
-    <div class="marq-item"><span class="mock-logo">DYNORA</span></div>
-    <div class="marq-item"><span class="mock-logo">CADENCE</span></div>
   </div>
 </div>
 
