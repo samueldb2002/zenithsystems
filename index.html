@@ -197,20 +197,25 @@ nav.scrolled{background:rgba(6,6,6,.75);backdrop-filter:blur(24px);border-bottom
 /* CASE STUDY */
 .case-section{position:relative;z-index:2;border-bottom:1px solid var(--b);padding:120px 48px;}
 .case-inner{max-width:1300px;margin:0 auto;}
-.case-label{margin-bottom:48px;}
-.case-grid{display:grid;grid-template-columns:40% 1fr;gap:80px;align-items:start;}
-.case-client{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m2);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;}
-.case-title{font-size:clamp(36px,4vw,56px);font-weight:700;letter-spacing:-2px;line-height:1;margin-bottom:40px;}
-.case-steps{display:flex;flex-direction:column;gap:28px;}
-.case-step-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:8px;}
-.case-step p{font-size:15px;color:rgba(240,237,232,.75);line-height:1.75;}
-.case-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--b);margin-bottom:32px;}
-.case-metric{background:var(--bg);padding:28px 20px;}
-.case-metric-n{font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.5vw,48px);font-weight:700;line-height:1;letter-spacing:-2px;}
-.case-metric-n span{font-size:.45em;letter-spacing:0;vertical-align:.15em;}
-.case-metric-l{font-size:11px;color:var(--m);margin-top:8px;letter-spacing:.5px;}
-.case-quote{border:1px solid var(--b);padding:28px 32px;border-radius:3px;font-size:14px;color:rgba(240,237,232,.65);font-style:italic;line-height:1.75;}
-.case-quote-author{font-style:normal;font-size:11px;color:var(--m);margin-top:16px;font-family:'JetBrains Mono',monospace;}
+.case-header{text-align:center;margin-bottom:72px;}
+.case-header h2{font-size:clamp(36px,5vw,72px);font-weight:900;letter-spacing:-3px;line-height:.95;margin-bottom:16px;}
+.case-header p{font-size:15px;color:var(--m2);max-width:480px;margin:0 auto;line-height:1.7;}
+.case-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--b);}
+.case-card{background:var(--bg);padding:40px 32px;display:flex;flex-direction:column;gap:24px;transition:background .3s;}
+.case-card:hover{background:rgba(240,237,232,.02);}
+.case-card-industry{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(240,237,232,.45);}
+.case-card-body{display:flex;flex-direction:column;gap:14px;}
+.case-card-row{font-size:13px;color:rgba(240,237,232,.65);line-height:1.65;}
+.case-card-row strong{color:var(--fg);font-weight:600;}
+.case-card-result{background:rgba(240,237,232,.05);border:1px solid var(--b2);border-radius:3px;padding:16px 20px;display:flex;align-items:center;gap:12px;}
+.case-card-arrow{font-size:16px;color:rgba(240,237,232,.5);}
+.case-card-metric{font-size:16px;font-weight:700;letter-spacing:-.5px;}
+.case-card-divider{height:1px;background:var(--b);}
+.case-card-quote{display:flex;flex-direction:column;gap:12px;margin-top:auto;}
+.case-card-qmark{font-size:28px;font-weight:900;color:rgba(240,237,232,.12);line-height:1;font-family:'JetBrains Mono',monospace;}
+.case-card-q{font-size:13px;color:rgba(240,237,232,.55);font-style:italic;line-height:1.75;}
+.case-card-author{font-size:12px;font-weight:600;color:rgba(240,237,232,.5);}
+@media(max-width:900px){.case-cards{grid-template-columns:1fr;}}
 
 /* CTA */
 .cta-wrap{position:relative;z-index:2;padding:120px 48px;}
@@ -281,7 +286,8 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
   .svc-band-num{font-size:clamp(56px,14vw,72px);letter-spacing:-2px;margin-bottom:16px;}
   .inv-inner{padding:80px 20px;}
   .case-section{padding:80px 20px;}
-  .case-grid{grid-template-columns:1fr;gap:40px;}
+  .case-cards{grid-template-columns:1fr;}
+  .case-header h2{letter-spacing:-2px;}
   .cta-wrap{padding:80px 20px;}
   .cta-inner{grid-template-columns:1fr;gap:48px;}
   .cta-row{flex-direction:column;}
@@ -502,48 +508,66 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
 <!-- CASE STUDY -->
 <section class="case-section">
   <div class="case-inner">
-    <div class="case-label r">
-      <div class="sec-tag">Case Study</div>
+    <div class="case-header r">
+      <h2>Bewezen resultaten</h2>
+      <p>Ontdek hoe wij bedrijven hebben geholpen met AI.</p>
     </div>
-    <div class="case-grid">
-      <div class="case-left r" style="--d:.08s">
-        <div class="case-client">Logistiek bedrijf</div>
-        <h3 class="case-title">Van 2 uur naar<br/>5 minuten</h3>
-        <div class="case-steps">
-          <div class="case-step">
-            <span class="case-step-label">Probleem</span>
-            <p>Offerteverwerking kostte 2 uur per dag. Handmatig, foutgevoelig, onschaalbaar.</p>
-          </div>
-          <div class="case-step">
-            <span class="case-step-label">Oplossing</span>
-            <p>AI-agent die offertes automatisch verwerkt, controleert en doorstuurt.</p>
-          </div>
-          <div class="case-step">
-            <span class="case-step-label">Resultaat</span>
-            <p>Van 2 uur naar 5 minuten. Geïmplementeerd in 3 weken.</p>
-          </div>
+    <div class="case-cards">
+
+      <div class="case-card r" style="--d:.0s">
+        <div class="case-card-industry">Logistiek bedrijf</div>
+        <div class="case-card-body">
+          <div class="case-card-row"><strong>Uitdaging:</strong> Handmatige offerteverwerking kostte 2 uur per dag</div>
+          <div class="case-card-row"><strong>Oplossing:</strong> AI-agent die offertes automatisch verwerkt en doorstuurt</div>
+        </div>
+        <div class="case-card-result">
+          <span class="case-card-arrow">↗</span>
+          <span class="case-card-metric">96% tijdsbesparing</span>
+        </div>
+        <div class="case-card-divider"></div>
+        <div class="case-card-quote">
+          <div class="case-card-qmark">99</div>
+          <div class="case-card-q">"Binnen 3 weken een volledig geautomatiseerde offerteverwerking. Wat 2 uur kostte, duurt nu 5 minuten."</div>
+          <div class="case-card-author">Martijn van der Berg, Operations Director</div>
         </div>
       </div>
-      <div class="case-right r" style="--d:.16s">
-        <div class="case-metrics">
-          <div class="case-metric">
-            <div class="case-metric-n">96<span>%</span></div>
-            <div class="case-metric-l">Tijdsbesparing</div>
-          </div>
-          <div class="case-metric">
-            <div class="case-metric-n">3<span>w</span></div>
-            <div class="case-metric-l">Time to value</div>
-          </div>
-          <div class="case-metric">
-            <div class="case-metric-n">0</div>
-            <div class="case-metric-l">Handmatige stappen</div>
-          </div>
+
+      <div class="case-card r" style="--d:.1s">
+        <div class="case-card-industry">SaaS scale-up</div>
+        <div class="case-card-body">
+          <div class="case-card-row"><strong>Uitdaging:</strong> Klantenservice overbelast door repetitieve vragen</div>
+          <div class="case-card-row"><strong>Oplossing:</strong> AI-agent gekoppeld aan bestaande helpdesk en kennisbank</div>
         </div>
-        <div class="case-quote">
-          "Binnen 3 weken een volledig geautomatiseerde offerteverwerking."
-          <div class="case-quote-author">Martijn van der Berg, Operations Director</div>
+        <div class="case-card-result">
+          <span class="case-card-arrow">↗</span>
+          <span class="case-card-metric">80% autonoom afgehandeld</span>
+        </div>
+        <div class="case-card-divider"></div>
+        <div class="case-card-quote">
+          <div class="case-card-qmark">99</div>
+          <div class="case-card-q">"Ze dachten niet in tools maar in oplossingen. De agent verwerkt nu 80% van onze klantvragen autonoom."</div>
+          <div class="case-card-author">Marjolijn Meijer, CEO Renessence</div>
         </div>
       </div>
+
+      <div class="case-card r" style="--d:.2s">
+        <div class="case-card-industry">Business coaching</div>
+        <div class="case-card-body">
+          <div class="case-card-row"><strong>Uitdaging:</strong> Geen schaalbaar systeem om klanten proactief op te volgen</div>
+          <div class="case-card-row"><strong>Oplossing:</strong> Geautomatiseerde opvolging op basis van klantdata en gedrag</div>
+        </div>
+        <div class="case-card-result">
+          <span class="case-card-arrow">↗</span>
+          <span class="case-card-metric">2 weken time-to-value</span>
+        </div>
+        <div class="case-card-divider"></div>
+        <div class="case-card-quote">
+          <div class="case-card-qmark">99</div>
+          <div class="case-card-q">"Wat me het meest verraste was hoe snel Samuel begreep waar de bottlenecks zaten."</div>
+          <div class="case-card-author">Han Doorenbosch, Business Coach</div>
+        </div>
+      </div>
+
     </div>
   </div>
 </section>
