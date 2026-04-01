@@ -103,24 +103,23 @@ nav.scrolled{background:rgba(6,6,6,.75);backdrop-filter:blur(24px);border-bottom
 .stat-n{font-family:'JetBrains Mono',monospace;font-size:clamp(44px,5vw,72px);font-weight:700;line-height:1;letter-spacing:-3px;}
 .stat-l{font-size:13px;color:var(--m2);margin-top:10px;line-height:1.6;}
 
-/* SERVICES - HORIZONTAL SCROLL */
-.svc-outer{position:relative;z-index:2;}
-.svc-sticky-wrap{height:400vh;}
-.svc-sticky{position:sticky;top:0;height:100vh;overflow:hidden;border-bottom:1px solid var(--b);}
-.svc-head{position:absolute;top:0;left:0;right:0;z-index:10;padding:48px 48px 0;display:flex;justify-content:space-between;align-items:flex-start;}
-.svc-head h2{font-size:clamp(32px,4.5vw,60px);font-weight:700;letter-spacing:-2.5px;line-height:1;}
-.svc-scroll-track{display:flex;align-items:stretch;height:100%;padding-top:140px;padding-bottom:0;will-change:transform;}
-.svc-card{flex:0 0 400px;height:calc(100vh - 140px);border-right:1px solid var(--b);padding:40px 48px;display:flex;flex-direction:column;justify-content:space-between;transition:background .3s;position:relative;overflow:hidden;}
-.svc-card:first-child{border-left:1px solid var(--b);}
-.svc-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(240,237,232,.04),transparent);opacity:0;transition:opacity .4s;}
-.svc-card:hover::before{opacity:1;}
-.svc-cn{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--m);letter-spacing:2px;margin-bottom:auto;}
-.svc-title{font-size:clamp(22px,2.8vw,34px);font-weight:700;letter-spacing:-1px;line-height:1.1;margin-bottom:16px;}
-.svc-desc{font-size:14px;color:var(--m2);line-height:1.75;margin-bottom:28px;}
-.svc-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);border:1px solid var(--b);padding:5px 10px;border-radius:2px;display:inline-block;letter-spacing:1px;}
-.svc-card:hover .svc-title{transform:translateX(4px);transition:transform .3s cubic-bezier(.16,1,.3,1);}
-.svc-prog-bar{position:absolute;bottom:0;left:0;right:0;height:1px;background:var(--b);}
-.svc-prog-fill{height:100%;background:var(--fg);width:0;transition:width .1s;}
+/* SERVICES */
+.svc-section{position:relative;z-index:2;padding:120px 0;border-bottom:1px solid var(--b);}
+.svc-section-head{padding:0 48px 72px;display:flex;align-items:flex-end;justify-content:space-between;}
+.svc-section-head h2{font-size:clamp(40px,5.5vw,80px);font-weight:700;letter-spacing:-3px;line-height:.95;}
+.svc-bands{border-top:1px solid var(--b);}
+.svc-band{display:grid;grid-template-columns:180px 1fr;align-items:start;padding:40px 48px;border-bottom:1px solid var(--b);position:relative;overflow:hidden;cursor:default;transition:background .3s;}
+.svc-band::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--fg);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1);}
+.svc-band:hover::before{transform:scaleX(1);}
+.svc-band:hover{background:rgba(240,237,232,.02);}
+.svc-band-num{font-size:clamp(72px,7vw,96px);font-weight:900;line-height:.9;letter-spacing:-4px;-webkit-text-stroke:1px rgba(240,237,232,.14);color:transparent;user-select:none;transition:-webkit-text-stroke-color .3s;}
+.svc-band:hover .svc-band-num{-webkit-text-stroke-color:rgba(240,237,232,.3);}
+.svc-band-content{padding-top:8px;}
+.svc-band-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.svc-band-title{font-size:clamp(22px,2.4vw,32px);font-weight:700;letter-spacing:-1px;line-height:1.1;margin-bottom:12px;transition:transform .3s cubic-bezier(.16,1,.3,1);}
+.svc-band:hover .svc-band-title{transform:translateX(6px);}
+.svc-band-desc{font-size:13px;color:var(--m2);line-height:1.8;max-width:580px;margin-bottom:20px;}
+.svc-band-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);border:1px solid var(--b);padding:5px 10px;border-radius:2px;display:inline-block;letter-spacing:1px;}
 
 /* PROCESS - INVERTED */
 .inv-sec{position:relative;z-index:2;background:var(--fg);color:var(--bg);}
@@ -230,8 +229,10 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:ce
   .cta-form{flex-direction:column;}
   .cta-wrap h2{letter-spacing:-4px;}
   footer{padding:24px 20px;}
-  .svc-head{padding:32px 20px 0;}
-  .svc-card{flex:0 0 300px;padding:32px 24px;}
+  .svc-section{padding:80px 0;}
+  .svc-section-head{padding:0 20px 48px;}
+  .svc-band{grid-template-columns:1fr;padding:32px 20px;}
+  .svc-band-num{font-size:clamp(56px,14vw,72px);letter-spacing:-2px;margin-bottom:16px;}
   .inv-inner{padding:80px 20px;}
 }
 @keyframes marqueeAnim{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -318,44 +319,68 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:ce
   </div>
 </div>
 
-<!-- SERVICES - HORIZONTAL SCROLL -->
-<div class="svc-outer" id="diensten">
-  <div class="svc-sticky-wrap">
-    <div class="svc-sticky">
-      <div class="svc-head">
-        <div class="r"><div class="sec-tag" style="color:var(--m2);">Diensten</div><h2>Wat we bouwen</h2></div>
-        <p class="r" style="color:var(--m2);font-size:14px;max-width:280px;line-height:1.75;text-align:right;" data-delay style="--d:.15s">Scroll horizontaal →</p>
+<!-- SERVICES -->
+<section class="svc-section" id="diensten">
+  <div class="svc-section-head r">
+    <div><div class="sec-tag" style="color:var(--m2);">Diensten</div><h2>Wat we bouwen</h2></div>
+  </div>
+  <div class="svc-bands">
+    <div class="svc-band r" style="--d:.0s">
+      <div class="svc-band-num">01</div>
+      <div class="svc-band-content">
+        <div class="svc-band-label">Agents</div>
+        <div class="svc-band-title">AI Agents op Maat</div>
+        <p class="svc-band-desc">Autonome agents die complexe taken afhandelen zonder menselijke tussenkomst — van e-mail tot volledige dataverwerking.</p>
+        <span class="svc-band-tag">GPT-4o · Claude · Gemini</span>
       </div>
-      <div class="svc-scroll-track" id="svcTrack">
-        <div class="svc-card">
-          <div class="svc-cn">01 / Agents</div>
-          <div><div class="svc-title">AI Agents op Maat</div><div class="svc-desc">Autonome agents die complexe taken afhandelen zonder menselijke tussenkomst — van e-mail tot volledige dataverwerking.</div><div class="svc-tag">GPT-4o · Claude · Gemini</div></div>
-        </div>
-        <div class="svc-card">
-          <div class="svc-cn">02 / Automatisering</div>
-          <div><div class="svc-title">Workflow Automatisering</div><div class="svc-desc">Handmatige stappen elimineren met intelligente automatisering die 24/7 draait en schaalt met uw groei.</div><div class="svc-tag">n8n · Make · Custom API</div></div>
-        </div>
-        <div class="svc-card">
-          <div class="svc-cn">03 / Integraties</div>
-          <div><div class="svc-title">LLM & API Integraties</div><div class="svc-desc">Koppel AI-modellen naadloos aan uw CRM, ERP of andere systemen via robuuste, schaalbare architecturen.</div><div class="svc-tag">REST · OAuth · Webhooks</div></div>
-        </div>
-        <div class="svc-card">
-          <div class="svc-cn">04 / Kennissystemen</div>
-          <div><div class="svc-title">RAG & Kennischatbots</div><div class="svc-desc">Kennisbanken en chatbots op uw eigen data — nauwkeurig, betrouwbaar en volledig afgestemd op uw domein.</div><div class="svc-tag">Pinecone · RAG · Embed</div></div>
-        </div>
-        <div class="svc-card">
-          <div class="svc-cn">05 / Data</div>
-          <div><div class="svc-title">AI Data & Analyse</div><div class="svc-desc">Ruwe data omzetten in bruikbare inzichten via AI-gedreven dashboards, anomaliedetectie en voorspellende modellen.</div><div class="svc-tag">Python · ML · Dashboards</div></div>
-        </div>
-        <div class="svc-card">
-          <div class="svc-cn">06 / Strategie</div>
-          <div><div class="svc-title">Strategie & Advies</div><div class="svc-desc">De juiste AI-keuzes maken voor maximale ROI — prioritering, architectuur, toolkeuze en concrete implementatieroadmap.</div><div class="svc-tag">Workshop · Roadmap</div></div>
-        </div>
+    </div>
+    <div class="svc-band r" style="--d:.06s">
+      <div class="svc-band-num">02</div>
+      <div class="svc-band-content">
+        <div class="svc-band-label">Automatisering</div>
+        <div class="svc-band-title">Workflow Automatisering</div>
+        <p class="svc-band-desc">Handmatige stappen elimineren met intelligente automatisering die 24/7 draait en schaalt met uw groei.</p>
+        <span class="svc-band-tag">n8n · Make · Custom API</span>
       </div>
-      <div class="svc-prog-bar"><div class="svc-prog-fill" id="svcFill"></div></div>
+    </div>
+    <div class="svc-band r" style="--d:.12s">
+      <div class="svc-band-num">03</div>
+      <div class="svc-band-content">
+        <div class="svc-band-label">Integraties</div>
+        <div class="svc-band-title">LLM & API Integraties</div>
+        <p class="svc-band-desc">Koppel AI-modellen naadloos aan uw CRM, ERP of andere systemen via robuuste, schaalbare architecturen.</p>
+        <span class="svc-band-tag">REST · OAuth · Webhooks</span>
+      </div>
+    </div>
+    <div class="svc-band r" style="--d:.18s">
+      <div class="svc-band-num">04</div>
+      <div class="svc-band-content">
+        <div class="svc-band-label">Kennissystemen</div>
+        <div class="svc-band-title">RAG & Kennischatbots</div>
+        <p class="svc-band-desc">Kennisbanken en chatbots op uw eigen data — nauwkeurig, betrouwbaar en volledig afgestemd op uw domein.</p>
+        <span class="svc-band-tag">Pinecone · RAG · Embed</span>
+      </div>
+    </div>
+    <div class="svc-band r" style="--d:.24s">
+      <div class="svc-band-num">05</div>
+      <div class="svc-band-content">
+        <div class="svc-band-label">Data</div>
+        <div class="svc-band-title">AI Data & Analyse</div>
+        <p class="svc-band-desc">Ruwe data omzetten in bruikbare inzichten via AI-gedreven dashboards, anomaliedetectie en voorspellende modellen.</p>
+        <span class="svc-band-tag">Python · ML · Dashboards</span>
+      </div>
+    </div>
+    <div class="svc-band r" style="--d:.30s">
+      <div class="svc-band-num">06</div>
+      <div class="svc-band-content">
+        <div class="svc-band-label">Strategie</div>
+        <div class="svc-band-title">Strategie & Advies</div>
+        <p class="svc-band-desc">De juiste AI-keuzes maken voor maximale ROI — prioritering, architectuur, toolkeuze en concrete implementatieroadmap.</p>
+        <span class="svc-band-tag">Workshop · Roadmap</span>
+      </div>
     </div>
   </div>
-</div>
+</section>
 
 <!-- AANPAK - INVERTED -->
 <div class="inv-sec" id="aanpak">
@@ -653,20 +678,6 @@ document.addEventListener('mousemove', e=>{ hpMX=e.clientX; hpMY=e.clientY; });
   requestAnimationFrame(hpLoop);
 })();
 
-// ── HORIZONTAL SERVICES SCROLL ───────────────────────
-const svcTrack=document.getElementById('svcTrack');
-const svcFill=document.getElementById('svcFill');
-const svcOuter=document.querySelector('.svc-outer');
-function updateHscroll(){
-  const rect=svcOuter.getBoundingClientRect();
-  const outerH=svcOuter.offsetHeight;
-  const totalScroll=outerH-window.innerHeight;
-  const scrolled=Math.max(0,-rect.top);
-  const progress=Math.min(1,scrolled/totalScroll);
-  const trackW=svcTrack.scrollWidth-window.innerWidth;
-  svcTrack.style.transform=`translateX(${-progress*trackW}px)`;
-  svcFill.style.width=(progress*100)+'%';
-}
 
 // ── 3D TILT ───────────────────────────────────────────
 document.querySelectorAll('.tc').forEach(card=>{
@@ -736,8 +747,8 @@ let ti=0;
 setInterval(()=>{ ti=(ti+1)%tags.length; document.getElementById('htag').textContent=tags[ti]; },2800);
 
 // ── SCROLL HANDLER ────────────────────────────────────
-window.addEventListener('scroll',()=>{ updProg(); updNav(); parallax(); updateHscroll(); blendCanvases(); },{passive:true});
-updateHscroll(); blendCanvases();
+window.addEventListener('scroll',()=>{ updProg(); updNav(); parallax(); blendCanvases(); },{passive:true});
+blendCanvases();
 
 // ── CTA ───────────────────────────────────────────────
 async function handleCta(){
