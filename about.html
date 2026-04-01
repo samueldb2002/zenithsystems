@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Over Samuel — Zenith Systems</title>
+<meta name="description" content="Samuel Doorenbosch, oprichter van Zenith Systems. AI-systemen voor bedrijven die willen groeien."/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#060606;--fg:#f0ede8;--m:#555;--m2:#888;--b:rgba(240,237,232,.07);--b2:rgba(240,237,232,.13);}
+body{background:var(--bg);color:var(--fg);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;overflow-x:hidden;cursor:none;line-height:1.6;}
+::selection{background:var(--fg);color:var(--bg);}
+
+/* GRAIN */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;}
+
+/* CURSOR */
+#c{position:fixed;width:6px;height:6px;background:var(--fg);border-radius:50%;pointer-events:none;z-index:10000;transform:translate(-50%,-50%);transition:width .15s,height .15s;}
+#cr{position:fixed;width:32px;height:32px;border:1px solid rgba(240,237,232,.2);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);}
+body.hov #c{width:10px;height:10px;}
+body.hov #cr{width:52px;height:52px;border-color:rgba(240,237,232,.4);}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:64px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;background:rgba(6,6,6,.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--b);}
+.nl{text-decoration:none;display:inline-flex;align-items:center;}
+.nl img{height:28px;width:auto;display:block;}
+.nr{display:flex;gap:28px;align-items:center;}
+.nla{color:var(--m2);text-decoration:none;font-size:11px;letter-spacing:.3px;transition:color .2s;font-family:'JetBrains Mono',monospace;}
+.nla:hover{color:var(--fg);}
+.nb{padding:9px 20px;border:1px solid var(--b2);border-radius:3px;color:var(--fg);font-size:13px;font-weight:600;text-decoration:none;transition:background .2s;border-color:var(--b2);}
+.nb:hover{background:rgba(240,237,232,.08);}
+
+/* ABOUT */
+.about-wrap{min-height:100vh;display:flex;align-items:center;padding:120px 48px 100px;position:relative;z-index:2;border-bottom:1px solid var(--b);}
+.about-inner{max-width:1100px;margin:0 auto;width:100%;display:grid;grid-template-columns:300px 1fr;gap:96px;align-items:center;}
+
+/* PHOTO */
+.about-photo-wrap{position:relative;}
+.about-photo{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:4px;display:block;filter:grayscale(15%);border:1px solid var(--b);}
+.about-initials{width:100%;aspect-ratio:3/4;background:rgba(240,237,232,.04);border:1px solid var(--b);border-radius:4px;display:none;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:clamp(56px,8vw,96px);font-weight:900;color:rgba(240,237,232,.1);letter-spacing:-4px;}
+
+/* TEXT */
+.about-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m2);letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;}
+.about-name{font-size:clamp(48px,6.5vw,88px);font-weight:900;letter-spacing:-4px;line-height:.9;margin-bottom:28px;}
+.about-rule{width:100%;height:1px;background:var(--b);margin-bottom:28px;}
+.about-role{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--m);letter-spacing:2px;text-transform:uppercase;margin-bottom:40px;}
+.about-bio{font-size:17px;color:rgba(240,237,232,.78);line-height:1.85;margin-bottom:48px;max-width:520px;}
+.about-cta{display:inline-flex;align-items:center;gap:10px;background:var(--fg);color:var(--bg);padding:15px 32px;border-radius:3px;font-size:14px;font-weight:700;text-decoration:none;letter-spacing:.2px;transition:opacity .2s;}
+.about-cta:hover{opacity:.88;}
+
+/* REVEALS */
+.r{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.r.on{opacity:1;transform:none;}
+
+/* FOOTER */
+footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px;border-top:1px solid var(--b);}
+.f-left{display:flex;flex-direction:column;gap:10px;}
+.f-logo{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;}
+.f-contact a{font-size:12px;color:var(--m);text-decoration:none;transition:color .2s;font-family:'JetBrains Mono',monospace;}
+.f-contact a:hover{color:var(--fg);}
+.f-links{display:flex;gap:24px;}
+.f-links a{font-size:12px;color:var(--m);text-decoration:none;transition:color .2s;}
+.f-links a:hover{color:var(--fg);}
+.f-copy{font-size:11px;color:var(--m);font-family:'JetBrains Mono',monospace;}
+
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nla{display:none;}
+  #c,#cr{display:none;}
+  .about-wrap{padding:96px 20px 72px;}
+  .about-inner{grid-template-columns:1fr;gap:40px;}
+  .about-photo{aspect-ratio:4/3;}
+  .about-initials{aspect-ratio:4/3;}
+  .about-name{letter-spacing:-2px;}
+  footer{padding:24px 20px;flex-direction:column;gap:16px;}
+}
+</style>
+</head>
+<body>
+
+<div id="c"></div>
+<div id="cr"></div>
+
+<nav>
+  <a href="/" class="nl"><img src="[ZENITH].png" alt="Zenith Systems"/></a>
+  <div class="nr">
+    <a href="/#diensten" class="nla">Diensten</a>
+    <a href="/#aanpak" class="nla">Aanpak</a>
+    <a href="/about.html" class="nla" style="color:var(--fg)">Over</a>
+    <a href="/#contact" class="nb">Gratis Gesprek →</a>
+  </div>
+</nav>
+
+<!-- ABOUT -->
+<div class="about-wrap">
+  <div class="about-inner">
+
+    <!-- FOTO -->
+    <div class="about-photo-wrap r">
+      <img
+        src="foto.jpg"
+        alt="Samuel Doorenbosch"
+        class="about-photo"
+        onerror="this.style.display='none';document.getElementById('initials').style.display='flex';"
+      />
+      <div class="about-initials" id="initials">SD</div>
+    </div>
+
+    <!-- TEKST -->
+    <div class="about-content">
+      <div class="about-tag r" style="--d:.06s">Over</div>
+      <h1 class="about-name r" style="--d:.10s">Samuel<br/>Doorenbosch</h1>
+      <div class="about-rule r" style="--d:.13s"></div>
+      <div class="about-role r" style="--d:.14s">Oprichter · Zenith Systems</div>
+      <p class="about-bio r" style="--d:.18s">
+        Samuel Doorenbosch is de oprichter van Zenith Systems en helpt bedrijven hun processen slimmer te maken met AI.
+        Met een directe, resultaatgerichte aanpak bouwt hij systemen die vanaf dag één waarde leveren.
+      </p>
+      <a href="/#contact" class="about-cta r" style="--d:.22s">Gratis Gesprek →</a>
+    </div>
+
+  </div>
+</div>
+
+<footer>
+  <div class="f-left">
+    <div class="f-logo"><img src="[ZENITH].png" alt="Zenith Systems" style="height:22px;width:auto;opacity:.7;"/></div>
+    <div class="f-contact"><a href="mailto:samuel@zenithsystems.io">samuel@zenithsystems.io</a></div>
+  </div>
+  <div class="f-links">
+    <a href="/">Home</a>
+    <a href="/#diensten">Diensten</a>
+    <a href="/#aanpak">Aanpak</a>
+    <a href="/#contact">Contact</a>
+  </div>
+  <div class="f-copy">© 2026 Zenith Systems</div>
+</footer>
+
+<script>
+// ── CURSOR
+const cDot=document.getElementById('c'), cRing=document.getElementById('cr');
+let mx=window.innerWidth/2, my=window.innerHeight/2, rx=mx, ry=my;
+document.addEventListener('mousemove', e=>{ mx=e.clientX; my=e.clientY; cDot.style.left=mx+'px'; cDot.style.top=my+'px'; });
+(function loop(){ rx+=(mx-rx)*.12; ry+=(my-ry)*.12; cRing.style.left=rx+'px'; cRing.style.top=ry+'px'; requestAnimationFrame(loop); })();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>document.body.classList.add('hov'));
+  el.addEventListener('mouseleave',()=>document.body.classList.remove('hov'));
+});
+
+// ── REVEALS
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }
+}),{threshold:.07});
+document.querySelectorAll('.r').forEach(el=>{
+  if(el.style.getPropertyValue('--d')) el.style.transitionDelay=el.style.getPropertyValue('--d');
+  io.observe(el);
+});
+setTimeout(()=>document.querySelectorAll('.r').forEach(el=>el.classList.add('on')), 80);
+</script>
+</body>
+</html>
