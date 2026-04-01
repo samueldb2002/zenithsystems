@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Zenith AI</title>
+<title>Zenith Systems | AI Operating Systems voor bedrijven</title>
+<meta name="description" content="Wij bouwen AI Operating Systems: een context-laag die jullie bedrijf kent, agents die samenwerken, en een dashboard waar jullie alles zien. Gratis gesprek."/>
 <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
@@ -178,27 +179,63 @@ nav.scrolled{background:rgba(6,6,6,.75);backdrop-filter:blur(24px);border-bottom
 .tc-name{font-size:13px;font-weight:600;}
 .tc-role{font-size:12px;color:var(--m);}
 
+/* SR-ONLY */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}
+
+/* MOCK LOGOS */
+.mock-logo{font-family:'JetBrains Mono',monospace;font-weight:700;letter-spacing:2px;color:var(--m2);font-size:13px;}
+
+/* CASE STUDY */
+.case-section{position:relative;z-index:2;border-bottom:1px solid var(--b);padding:120px 48px;}
+.case-inner{max-width:1300px;margin:0 auto;}
+.case-label{margin-bottom:48px;}
+.case-grid{display:grid;grid-template-columns:40% 1fr;gap:80px;align-items:start;}
+.case-client{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m2);letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;}
+.case-title{font-size:clamp(36px,4vw,56px);font-weight:700;letter-spacing:-2px;line-height:1;margin-bottom:40px;}
+.case-steps{display:flex;flex-direction:column;gap:28px;}
+.case-step-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);letter-spacing:2px;text-transform:uppercase;display:block;margin-bottom:8px;}
+.case-step p{font-size:14px;color:var(--m2);line-height:1.7;}
+.case-metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--b);margin-bottom:32px;}
+.case-metric{background:var(--bg);padding:28px 20px;}
+.case-metric-n{font-family:'JetBrains Mono',monospace;font-size:clamp(32px,3.5vw,48px);font-weight:700;line-height:1;letter-spacing:-2px;}
+.case-metric-n span{font-size:.45em;letter-spacing:0;vertical-align:.15em;}
+.case-metric-l{font-size:11px;color:var(--m);margin-top:8px;letter-spacing:.5px;}
+.case-quote{border:1px solid var(--b);padding:28px 32px;border-radius:3px;font-size:14px;color:rgba(240,237,232,.65);font-style:italic;line-height:1.75;}
+.case-quote-author{font-style:normal;font-size:11px;color:var(--m);margin-top:16px;font-family:'JetBrains Mono',monospace;}
+
 /* CTA */
-.cta-wrap{position:relative;z-index:2;padding:180px 48px;text-align:center;}
-.cta-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m2);letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;}
-.cta-wrap h2{font-size:clamp(60px,11vw,170px);font-weight:900;letter-spacing:-8px;line-height:.85;margin-bottom:48px;}
-.cta-ghost{-webkit-text-stroke:1px rgba(240,237,232,.18);color:transparent;}
-.cta-sub{color:var(--m2);font-size:16px;max-width:420px;margin:0 auto 56px;line-height:1.75;}
-.cta-form{display:flex;gap:10px;max-width:480px;margin:0 auto 32px;}
-.cta-input{flex:1;padding:16px 20px;background:rgba(240,237,232,.05);border:1px solid var(--b);border-radius:3px;color:var(--fg);font-size:15px;font-family:'Inter',sans-serif;outline:none;transition:border-color .2s,background .2s;}
+.cta-wrap{position:relative;z-index:2;padding:120px 48px;}
+.cta-inner{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.cta-title{font-size:clamp(40px,5vw,68px);font-weight:700;letter-spacing:-3px;line-height:.95;margin-bottom:24px;}
+.cta-sub{color:var(--m2);font-size:15px;max-width:360px;line-height:1.75;margin-bottom:32px;}
+.cta-detail{display:flex;flex-direction:column;gap:10px;}
+.cta-detail div{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--m);letter-spacing:.5px;}
+.cta-detail div::before{content:'✓  ';color:rgba(240,237,232,.5);}
+.cta-form-full{display:flex;flex-direction:column;gap:12px;}
+.cta-row{display:flex;gap:12px;}
+.cta-row .cta-input{flex:1;}
+.cta-input{padding:14px 18px;background:rgba(240,237,232,.05);border:1px solid var(--b);border-radius:3px;color:var(--fg);font-size:14px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;outline:none;transition:border-color .2s,background .2s;width:100%;}
 .cta-input:focus{border-color:rgba(240,237,232,.28);background:rgba(240,237,232,.07);}
 .cta-input::placeholder{color:var(--m);}
-.cta-btn{padding:16px 28px;background:var(--fg);color:var(--bg);font-size:14px;font-weight:700;border:none;border-radius:3px;cursor:none;letter-spacing:.3px;position:relative;overflow:hidden;transition:opacity .2s;}
+.cta-textarea{resize:vertical;min-height:100px;}
+.cta-btn{padding:16px 28px;background:var(--fg);color:var(--bg);font-size:14px;font-weight:700;border:none;border-radius:3px;cursor:none;letter-spacing:.3px;position:relative;overflow:hidden;transition:opacity .2s;width:100%;}
 .cta-btn::after{content:'';position:absolute;inset:0;background:rgba(6,6,6,.1);transform:translateX(-100%);transition:transform .4s cubic-bezier(.16,1,.3,1);}
 .cta-btn:hover::after{transform:translateX(0);}
-.cta-note{font-size:12px;color:var(--m);font-family:'JetBrains Mono',monospace;letter-spacing:.5px;}
+.cta-note{font-size:12px;color:var(--m);font-family:'JetBrains Mono',monospace;letter-spacing:.5px;margin-top:4px;}
 
 /* FOOTER */
-footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;border-top:1px solid var(--b);}
+footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px;border-top:1px solid var(--b);}
+.f-left{display:flex;flex-direction:column;gap:10px;}
 .f-logo{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;}
+.f-contact a{font-size:12px;color:var(--m);text-decoration:none;transition:color .2s;font-family:'JetBrains Mono',monospace;}
+.f-contact a:hover{color:var(--fg);}
 .f-links{display:flex;gap:24px;}
 .f-links a{font-size:12px;color:var(--m);text-decoration:none;transition:color .2s;}
 .f-links a:hover{color:var(--fg);}
+.f-right{display:flex;flex-direction:column;gap:10px;align-items:flex-end;}
+.f-socials{display:flex;gap:16px;}
+.f-socials a{font-size:12px;color:var(--m);text-decoration:none;transition:color .2s;}
+.f-socials a:hover{color:var(--fg);}
 .f-copy{font-size:11px;color:var(--m);font-family:'JetBrains Mono',monospace;}
 
 /* REVEALS */
@@ -234,6 +271,12 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:ce
   .svc-band{grid-template-columns:1fr;padding:32px 20px;}
   .svc-band-num{font-size:clamp(56px,14vw,72px);letter-spacing:-2px;margin-bottom:16px;}
   .inv-inner{padding:80px 20px;}
+  .case-section{padding:80px 20px;}
+  .case-grid{grid-template-columns:1fr;gap:40px;}
+  .cta-wrap{padding:80px 20px;}
+  .cta-inner{grid-template-columns:1fr;gap:48px;}
+  .cta-row{flex-direction:column;}
+  .f-right{align-items:flex-start;}
 }
 @keyframes marqueeAnim{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 </style>
@@ -251,7 +294,7 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:ce
   <div class="nr">
     <a href="#diensten" class="nla">Diensten</a>
     <a href="#aanpak" class="nla">Aanpak</a>
-    <a href="#contact" class="nb mag-btn">Gesprek →</a>
+    <a href="#contact" class="nb mag-btn">Gratis Gesprek →</a>
   </div>
 </nav>
 
@@ -269,10 +312,11 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:ce
       <span class="hero-line hl-third" data-text="met AI">met AI</span>
     </h1>
   </div>
+  <span class="sr-only">Bedrijven schalen met AI</span>
   <div class="hero-bottom">
     <div class="hero-desc">
-      <p>Wij bouwen AI-systemen die repetitieve processen elimineren, klantinteracties automatiseren en data omzetten in beslissingen — snel, meetbaar en zonder overhead.</p>
-      <a href="#contact" class="hero-cta mag-btn">Gratis strategiegesprek →</a>
+      <p>Een systeem dat jullie bedrijf kent, jullie processen automatiseert, en alles samenbrengt.</p>
+      <a href="#contact" class="hero-cta mag-btn">Plan een Gratis Gesprek in →</a>
     </div>
     <div class="hero-meta">
       <div class="hero-meta-n">40+</div>
@@ -307,14 +351,14 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:ce
 <div class="stats-wrap" id="stats">
   <div class="stats-inner">
     <div class="stats-top r">
-      <h2>Resultaten<br/>die tellen</h2>
-      <p>Gemiddelden over alle klantprojecten. Geen marketingcijfers — echte meetresultaten.</p>
+      <h2>Resultaten</h2>
+      <p>Gemiddelden over alle klantprojecten. Geen marketingcijfers, echte meetresultaten.</p>
     </div>
     <div class="stats-grid">
-      <div class="stat-item r" style="--d:.0s"><div class="stat-n"><span class="cu" data-t="70">0</span>%</div><div class="stat-l">Reductie handmatige<br/>verwerkingstijd</div></div>
-      <div class="stat-item r" style="--d:.1s"><div class="stat-n">€<span class="cu" data-t="120">0</span>K+</div><div class="stat-l">Gemiddelde kosten-<br/>besparing per jaar</div></div>
-      <div class="stat-item r" style="--d:.2s"><div class="stat-n"><span class="cu" data-t="14">0</span>d</div><div class="stat-l">Van kickoff naar<br/>productie</div></div>
-      <div class="stat-item r" style="--d:.3s"><div class="stat-n"><span class="cu" data-t="40">0</span>+</div><div class="stat-l">Succesvolle<br/>AI-implementaties</div></div>
+      <div class="stat-item r" style="--d:.0s"><div class="stat-n"><span class="cu" data-t="70">70</span>%</div><div class="stat-l">Reductie handmatige<br/>verwerkingstijd</div></div>
+      <div class="stat-item r" style="--d:.1s"><div class="stat-n">€<span class="cu" data-t="120">120</span>K+</div><div class="stat-l">Gemiddelde kosten-<br/>besparing per jaar</div></div>
+      <div class="stat-item r" style="--d:.2s"><div class="stat-n"><span class="cu" data-t="14">14</span>d</div><div class="stat-l">Van kickoff naar<br/>productie</div></div>
+      <div class="stat-item r" style="--d:.3s"><div class="stat-n"><span class="cu" data-t="40">40</span>+</div><div class="stat-l">Succesvolle<br/>AI-implementaties</div></div>
     </div>
   </div>
 </div>
@@ -328,55 +372,37 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:ce
     <div class="svc-band r" style="--d:.0s">
       <div class="svc-band-num">01</div>
       <div class="svc-band-content">
-        <div class="svc-band-label">Agents</div>
-        <div class="svc-band-title">AI Agents op Maat</div>
-        <p class="svc-band-desc">Autonome agents die complexe taken afhandelen zonder menselijke tussenkomst — van e-mail tot volledige dataverwerking.</p>
-        <span class="svc-band-tag">GPT-4o · Claude · Gemini</span>
+        <div class="svc-band-label">Strategie</div>
+        <div class="svc-band-title">AI Strategie</div>
+        <p class="svc-band-desc">De juiste AI-keuzes voor jullie bedrijf. Processen in kaart, prioriteiten gesteld, en een concreet implementatieplan.</p>
+        <span class="svc-band-tag">Workshop · Roadmap · ROI-analyse</span>
       </div>
     </div>
-    <div class="svc-band r" style="--d:.06s">
+    <div class="svc-band r" style="--d:.08s">
       <div class="svc-band-num">02</div>
       <div class="svc-band-content">
-        <div class="svc-band-label">Automatisering</div>
-        <div class="svc-band-title">Workflow Automatisering</div>
-        <p class="svc-band-desc">Handmatige stappen elimineren met intelligente automatisering die 24/7 draait en schaalt met uw groei.</p>
-        <span class="svc-band-tag">n8n · Make · Custom API</span>
+        <div class="svc-band-label">Agents</div>
+        <div class="svc-band-title">AI Agents & Procesautomatisering</div>
+        <p class="svc-band-desc">Autonome agents die jullie repetitieve processen overnemen en workflows automatiseren die 24/7 draaien.</p>
+        <span class="svc-band-tag">GPT-4o · Claude · n8n · Make</span>
       </div>
     </div>
-    <div class="svc-band r" style="--d:.12s">
+    <div class="svc-band r" style="--d:.16s">
       <div class="svc-band-num">03</div>
       <div class="svc-band-content">
-        <div class="svc-band-label">Integraties</div>
-        <div class="svc-band-title">LLM & API Integraties</div>
-        <p class="svc-band-desc">Koppel AI-modellen naadloos aan uw CRM, ERP of andere systemen via robuuste, schaalbare architecturen.</p>
-        <span class="svc-band-tag">REST · OAuth · Webhooks</span>
-      </div>
-    </div>
-    <div class="svc-band r" style="--d:.18s">
-      <div class="svc-band-num">04</div>
-      <div class="svc-band-content">
-        <div class="svc-band-label">Kennissystemen</div>
-        <div class="svc-band-title">RAG & Kennischatbots</div>
-        <p class="svc-band-desc">Kennisbanken en chatbots op uw eigen data — nauwkeurig, betrouwbaar en volledig afgestemd op uw domein.</p>
-        <span class="svc-band-tag">Pinecone · RAG · Embed</span>
+        <div class="svc-band-label">Custom</div>
+        <div class="svc-band-title">Custom Oplossingen</div>
+        <p class="svc-band-desc">Kennissystemen, API-koppelingen en data-integraties op maat. Jullie bestaande tools worden slimmer.</p>
+        <span class="svc-band-tag">RAG · REST · Webhooks · Python</span>
       </div>
     </div>
     <div class="svc-band r" style="--d:.24s">
-      <div class="svc-band-num">05</div>
+      <div class="svc-band-num">04</div>
       <div class="svc-band-content">
-        <div class="svc-band-label">Data</div>
-        <div class="svc-band-title">AI Data & Analyse</div>
-        <p class="svc-band-desc">Ruwe data omzetten in bruikbare inzichten via AI-gedreven dashboards, anomaliedetectie en voorspellende modellen.</p>
-        <span class="svc-band-tag">Python · ML · Dashboards</span>
-      </div>
-    </div>
-    <div class="svc-band r" style="--d:.30s">
-      <div class="svc-band-num">06</div>
-      <div class="svc-band-content">
-        <div class="svc-band-label">Strategie</div>
-        <div class="svc-band-title">Strategie & Advies</div>
-        <p class="svc-band-desc">De juiste AI-keuzes maken voor maximale ROI — prioritering, architectuur, toolkeuze en concrete implementatieroadmap.</p>
-        <span class="svc-band-tag">Workshop · Roadmap</span>
+        <div class="svc-band-label">Dashboard</div>
+        <div class="svc-band-title">Full AI Dashboard</div>
+        <p class="svc-band-desc">Alles op een plek. Transparant. Geen black box.</p>
+        <span class="svc-band-tag">Real-time · Metrics · Control</span>
       </div>
     </div>
   </div>
@@ -419,10 +445,24 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:ce
 
 <!-- MARQUEE -->
 <div class="marquee-wrap">
-  <div class="marquee-label">Werkend met teams bij</div>
+  <div class="marquee-label">Geselecteerde klanten.</div>
   <div class="marquee-track" id="marquee">
-    <div class="marq-item">Scale-ups</div><div class="marq-item">E-commerce</div><div class="marq-item">Logistiek</div><div class="marq-item">Finance</div><div class="marq-item">SaaS</div><div class="marq-item">Recruitment</div><div class="marq-item">Zorg</div><div class="marq-item">Retail</div><div class="marq-item">B2B Sales</div><div class="marq-item">Legal</div>
-    <div class="marq-item">Scale-ups</div><div class="marq-item">E-commerce</div><div class="marq-item">Logistiek</div><div class="marq-item">Finance</div><div class="marq-item">SaaS</div><div class="marq-item">Recruitment</div><div class="marq-item">Zorg</div><div class="marq-item">Retail</div><div class="marq-item">B2B Sales</div><div class="marq-item">Legal</div>
+    <div class="marq-item"><span class="mock-logo">ARCTIQ</span></div>
+    <div class="marq-item"><span class="mock-logo">VELTRO</span></div>
+    <div class="marq-item"><span class="mock-logo">NOREX</span></div>
+    <div class="marq-item"><span class="mock-logo">SOLVEN</span></div>
+    <div class="marq-item"><span class="mock-logo">KAIROS</span></div>
+    <div class="marq-item"><span class="mock-logo">FLUXIO</span></div>
+    <div class="marq-item"><span class="mock-logo">DYNORA</span></div>
+    <div class="marq-item"><span class="mock-logo">CADENCE</span></div>
+    <div class="marq-item"><span class="mock-logo">ARCTIQ</span></div>
+    <div class="marq-item"><span class="mock-logo">VELTRO</span></div>
+    <div class="marq-item"><span class="mock-logo">NOREX</span></div>
+    <div class="marq-item"><span class="mock-logo">SOLVEN</span></div>
+    <div class="marq-item"><span class="mock-logo">KAIROS</span></div>
+    <div class="marq-item"><span class="mock-logo">FLUXIO</span></div>
+    <div class="marq-item"><span class="mock-logo">DYNORA</span></div>
+    <div class="marq-item"><span class="mock-logo">CADENCE</span></div>
   </div>
 </div>
 
@@ -456,25 +496,101 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:ce
   </div>
 </div>
 
-<!-- CTA -->
-<div class="cta-wrap" id="contact">
-  <div class="cta-eyebrow r">Klaar om te starten?</div>
-  <h2 class="r" style="--d:.08s">
-    Klaar?<br/>
-    <span class="cta-ghost">Gesprek.</span>
-  </h2>
-  <p class="cta-sub r" style="--d:.16s">Plan een gratis 30-minuten strategiegesprek. Geen pitch — directe analyse van uw situatie.</p>
-  <div class="cta-form r" style="--d:.24s">
-    <input class="cta-input" type="email" placeholder="uw@email.nl" id="cta-email"/>
-    <button class="cta-btn mag-btn" onclick="handleCta()">Plannen →</button>
+<!-- CASE STUDY -->
+<section class="case-section">
+  <div class="case-inner">
+    <div class="case-label r">
+      <div class="sec-tag">Case Study</div>
+    </div>
+    <div class="case-grid">
+      <div class="case-left r" style="--d:.08s">
+        <div class="case-client">Logistiek bedrijf</div>
+        <h3 class="case-title">Van 2 uur naar<br/>5 minuten</h3>
+        <div class="case-steps">
+          <div class="case-step">
+            <span class="case-step-label">Probleem</span>
+            <p>Offerteverwerking kostte 2 uur per dag. Handmatig, foutgevoelig, onschaalbaar.</p>
+          </div>
+          <div class="case-step">
+            <span class="case-step-label">Oplossing</span>
+            <p>AI-agent die offertes automatisch verwerkt, controleert en doorstuurt.</p>
+          </div>
+          <div class="case-step">
+            <span class="case-step-label">Resultaat</span>
+            <p>Van 2 uur naar 5 minuten. Geïmplementeerd in 3 weken.</p>
+          </div>
+        </div>
+      </div>
+      <div class="case-right r" style="--d:.16s">
+        <div class="case-metrics">
+          <div class="case-metric">
+            <div class="case-metric-n">96<span>%</span></div>
+            <div class="case-metric-l">Tijdsbesparing</div>
+          </div>
+          <div class="case-metric">
+            <div class="case-metric-n">3<span>w</span></div>
+            <div class="case-metric-l">Time to value</div>
+          </div>
+          <div class="case-metric">
+            <div class="case-metric-n">0</div>
+            <div class="case-metric-l">Handmatige stappen</div>
+          </div>
+        </div>
+        <div class="case-quote">
+          "Binnen 3 weken een volledig geautomatiseerde offerteverwerking."
+          <div class="case-quote-author">Martijn van der Berg, Operations Director</div>
+        </div>
+      </div>
+    </div>
   </div>
-  <div class="cta-note r" style="--d:.32s">Gemiddeld binnen 24u reactie · Geen verplichtingen</div>
-</div>
+</section>
+
+<!-- CTA -->
+<section class="cta-wrap" id="contact">
+  <div class="cta-inner">
+    <div class="cta-left r">
+      <div class="sec-tag">Contact</div>
+      <h2 class="cta-title">Start uw<br/>AI-traject</h2>
+      <p class="cta-sub">Vertel ons over uw bedrijf. We plannen binnen 24 uur een gratis gesprek in.</p>
+      <div class="cta-detail">
+        <div>Gemiddeld binnen 24u reactie</div>
+        <div>Geen verplichtingen</div>
+        <div>Gratis diagnose gesprek</div>
+      </div>
+    </div>
+    <div class="cta-right r" style="--d:.12s">
+      <form class="cta-form-full" onsubmit="handleCtaFull(event)">
+        <div class="cta-row">
+          <input class="cta-input" type="text" placeholder="Uw naam" id="cta-naam" required/>
+          <input class="cta-input" type="text" placeholder="Bedrijfsnaam" id="cta-bedrijf" required/>
+        </div>
+        <input class="cta-input" type="email" placeholder="uw@email.nl" id="cta-email" required/>
+        <textarea class="cta-input cta-textarea" placeholder="Wat is uw uitdaging? (optioneel)" id="cta-bericht" rows="4"></textarea>
+        <button class="cta-btn mag-btn" type="submit">Gratis Gesprek →</button>
+        <div class="cta-note" id="cta-status"></div>
+      </form>
+    </div>
+  </div>
+</section>
 
 <footer>
-  <div class="f-logo"><img src="[ZENITH].png" alt="Zenith AI" style="height:22px;width:auto;opacity:.7;"/></div>
-  <div class="f-links"><a href="#diensten">Diensten</a><a href="#aanpak">Aanpak</a><a href="#contact">Contact</a></div>
-  <div class="f-copy">© 2026 Zenith AI</div>
+  <div class="f-left">
+    <div class="f-logo"><img src="[ZENITH].png" alt="Zenith Systems" style="height:22px;width:auto;opacity:.7;"/></div>
+    <div class="f-contact"><a href="mailto:samuel@zenithsystems.io">samuel@zenithsystems.io</a></div>
+  </div>
+  <div class="f-links">
+    <a href="#diensten">Diensten</a>
+    <a href="#aanpak">Aanpak</a>
+    <a href="#contact">Contact</a>
+    <a href="#contact">Gratis gesprek</a>
+  </div>
+  <div class="f-right">
+    <div class="f-socials">
+      <a href="#" target="_blank">X (Twitter)</a>
+      <a href="#" target="_blank">LinkedIn</a>
+    </div>
+    <div class="f-copy">© 2026 Zenith Systems</div>
+  </div>
 </footer>
 
 <script>
@@ -751,34 +867,41 @@ window.addEventListener('scroll',()=>{ updProg(); updNav(); parallax(); blendCan
 blendCanvases();
 
 // ── CTA ───────────────────────────────────────────────
-async function handleCta(){
-  const inp=document.getElementById('cta-email');
+async function handleCtaFull(event){
+  event.preventDefault();
+  const naam=document.getElementById('cta-naam').value;
+  const bedrijf=document.getElementById('cta-bedrijf').value;
+  const email=document.getElementById('cta-email').value;
+  const bericht=document.getElementById('cta-bericht').value;
   const btn=document.querySelector('.cta-btn');
-  if(!inp.value||!inp.value.includes('@')){
-    inp.style.borderColor='rgba(255,100,100,.5)';
-    inp.style.animation='shake .4s ease';
-    setTimeout(()=>{ inp.style.borderColor=''; inp.style.animation=''; },1500);
-    return;
-  }
+  const status=document.getElementById('cta-status');
   btn.textContent='Versturen...';
   btn.disabled=true;
   try {
     const res=await fetch('https://formspree.io/f/xdawdnnz',{
       method:'POST',
       headers:{'Content-Type':'application/json','Accept':'application/json'},
-      body:JSON.stringify({email:inp.value})
+      body:JSON.stringify({naam,bedrijf,email,bericht})
     });
     if(res.ok){
-      inp.value=''; inp.placeholder='✓ We nemen snel contact op!';
-      inp.style.borderColor='rgba(240,237,232,.3)';
       btn.textContent='Verzonden ✓';
+      status.textContent='We nemen binnen 24 uur contact op!';
+      status.style.color='rgba(240,237,232,.7)';
+      document.getElementById('cta-naam').value='';
+      document.getElementById('cta-bedrijf').value='';
+      document.getElementById('cta-email').value='';
+      document.getElementById('cta-bericht').value='';
     } else {
-      btn.textContent='Probeer opnieuw';
+      btn.textContent='Gratis Gesprek →';
       btn.disabled=false;
+      status.textContent='Er ging iets mis. Probeer het opnieuw.';
+      status.style.color='rgba(255,100,100,.7)';
     }
   } catch(e){
-    btn.textContent='Probeer opnieuw';
+    btn.textContent='Gratis Gesprek →';
     btn.disabled=false;
+    status.textContent='Er ging iets mis. Probeer het opnieuw.';
+    status.style.color='rgba(255,100,100,.7)';
   }
 }
 </script>
