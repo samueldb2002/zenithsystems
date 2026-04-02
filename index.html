@@ -697,7 +697,7 @@ function resz(){
     vx:(Math.random()-.5)*.12, vy:(Math.random()-.5)*.12
   }));
   // reset binary drops
-  cols=Math.floor(W/18);
+  cols=Math.floor(W/18)+1;
   drops=Array(cols).fill(0).map(()=>Math.random()*-80);
 }
 function drawPts(){
