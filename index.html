@@ -666,46 +666,49 @@ document.querySelectorAll('.mag-btn').forEach(btn=>{
   btn.addEventListener('mouseleave',()=>{ btn.style.transform=''; });
 });
 
-// ── PARTICLE CANVAS (bc) ──────────────────────────────
+// ── CONVERGENCE FIELD DOTS (bc) ──────────────────────────────
 const canvas=document.getElementById('bc'), ctx=canvas.getContext('2d');
-let W,H,pts=[];
-const NPTS=90, CONN=120;
+let W,H,gridPts=[];
+let mouseX=-9999,mouseY=-9999;
+const GRID_SPX=44,GRID_R=1.4,GRID_OPB=0.28,GRID_AMP=0.10,GRID_SPD=0.0008;
+const MOUSE_R=180,MOUSE_PUSH=14;
+function initGrid(){
+  gridPts=[];
+  const gc=Math.ceil(W/GRID_SPX)+2,gr=Math.ceil(H/GRID_SPX)+2;
+  const ox=(W-(gc-1)*GRID_SPX)/2,oy=(H-(gr-1)*GRID_SPX)/2;
+  for(let r=0;r<gr;r++) for(let c=0;c<gc;c++)
+    gridPts.push({bx:ox+c*GRID_SPX,by:oy+r*GRID_SPX,ph:Math.random()*Math.PI*2});
+}
 function resz(){
   W=canvas.width=window.innerWidth;
   H=canvas.height=window.innerHeight;
   canvas2.width=W; canvas2.height=H;
-  if(pts.length===0) pts=Array.from({length:NPTS},()=>({
-    x:Math.random()*W, y:Math.random()*H,
-    vx:(Math.random()-.5)*.12, vy:(Math.random()-.5)*.12
-  }));
+  initGrid();
   cols=Math.floor(W/18)+1;
   drops=Array(cols).fill(0).map(()=>Math.random()*-80);
 }
-function drawPts(){
+function drawGrid(ts){
   ctx.clearRect(0,0,W,H);
-  pts.forEach(p=>{
-    p.x+=p.vx; p.y+=p.vy;
-    if(p.x<0||p.x>W) p.vx*=-1;
-    if(p.y<0||p.y>H) p.vy*=-1;
-    const spd=Math.sqrt(p.vx*p.vx+p.vy*p.vy);
-    if(spd>0.28){ p.vx=p.vx/spd*.28; p.vy=p.vy/spd*.28; }
-  });
-  for(let i=0;i<pts.length;i++){
-    for(let j=i+1;j<pts.length;j++){
-      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
-      const d=Math.sqrt(dx*dx+dy*dy);
-      if(d<CONN){
-        const a=(1-d/CONN)*.18;
-        ctx.strokeStyle=`rgba(240,237,232,${a})`;
-        ctx.lineWidth=.8;
-        ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke();
-      }
+  const t=(ts||0)*GRID_SPD;
+  ctx.fillStyle='rgba(240,237,232,1)';
+  for(let i=0;i<gridPts.length;i++){
+    const p=gridPts[i];
+    const pulse=GRID_OPB+GRID_AMP*Math.sin(t+p.ph);
+    const dx=p.bx-mouseX,dy=p.by-mouseY,dist=Math.sqrt(dx*dx+dy*dy);
+    let drawX=p.bx,drawY=p.by,alpha=pulse;
+    if(dist<MOUSE_R&&dist>0){
+      const f=1-(dist/MOUSE_R);
+      drawX+=dx/dist*MOUSE_PUSH*f*f;
+      drawY+=dy/dist*MOUSE_PUSH*f*f;
+      alpha=Math.min(pulse*(1+f*.4),.4);
     }
-    ctx.fillStyle='rgba(240,237,232,.25)';
-    ctx.beginPath(); ctx.arc(pts[i].x,pts[i].y,1.2,0,Math.PI*2); ctx.fill();
+    ctx.globalAlpha=Math.min(alpha,.65);
+    ctx.beginPath(); ctx.arc(drawX,drawY,GRID_R,0,Math.PI*2); ctx.fill();
   }
-  requestAnimationFrame(drawPts);
+  ctx.globalAlpha=1;
+  requestAnimationFrame(drawGrid);
 }
+document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;});
 
 // ── BINARY RAIN CANVAS (bc2) ──────────────────────────
 const canvas2=document.getElementById('bc2'), ctx2=canvas2.getContext('2d');
@@ -724,7 +727,7 @@ function drawBinary(){
 }
 setInterval(drawBinary,55);
 
-resz(); drawPts(); drawBinary();
+resz(); requestAnimationFrame(drawGrid); drawBinary();
 window.addEventListener('resize',resz);
 
 // ── CANVAS BLEND ON SCROLL ────────────────────────────
