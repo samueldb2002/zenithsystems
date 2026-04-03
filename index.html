@@ -788,8 +788,6 @@ function drawHalos(time){
 function drawConvergence(time){
   ctx.clearRect(0,0,W,H);
   drawGrid(time);
-  drawStreams();
-  drawHalos(time);
   requestAnimationFrame(drawConvergence);
 }
 
