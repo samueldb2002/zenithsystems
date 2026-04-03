@@ -26,6 +26,7 @@ body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;o
 
 /* CANVAS */
 #bc{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:1;transition:opacity .6s ease;}
+#bc2{display:none;}
 
 
 
@@ -328,6 +329,7 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
 <div id="wrapper">
 <div id="prog"></div>
 <canvas id="bc"></canvas>
+<canvas id="bc2"></canvas>
 
 <nav id="nav">
   <a href="#" class="nl"><img src="[ZENITH].png" alt="Zenith AI"/></a>
@@ -348,12 +350,12 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
   </div>
   <div class="hero-headline">
     <h1 id="hero-h1">
-      <span class="hero-line" data-text="Het AI-systeem">Het AI-systeem</span>
-      <span class="hero-line" data-text="achter jouw">achter jouw</span>
-      <span class="hero-line hl-third" data-text="bedrijf">bedrijf</span>
+      <span class="hero-line" data-text="Bedrijven">Bedrijven</span>
+      <span class="hero-line rotating-line"><span class="rotating-word"></span><span class="rot-caret"></span></span>
+      <span class="hero-line hl-third" data-text="met AI">met AI</span>
     </h1>
   </div>
-  <span class="sr-only">Het AI-systeem achter jouw bedrijf</span>
+  <span class="sr-only">Bedrijven schalen met AI</span>
   <div class="hero-bottom">
     <div class="hero-desc">
       <p>AI-agents die jullie klantenservice, admin en data-werk 24/7 afhandelen. Gekoppeld aan jullie bestaande tools, live in 2 weken.</p>
@@ -664,144 +666,65 @@ document.querySelectorAll('.mag-btn').forEach(btn=>{
   btn.addEventListener('mouseleave',()=>{ btn.style.transform=''; });
 });
 
-// ── CONVERGENCE FIELD (bc) ────────────────────────────
+// ── PARTICLE CANVAS (bc) ──────────────────────────────
 const canvas=document.getElementById('bc'), ctx=canvas.getContext('2d');
-let W,H;
-
-// Config
-const GRID_SP=44,GRID_OPB=0.13,GRID_AMP=0.07,GRID_SPD=0.0007,GRID_PERSP=0.3;
-const NUM_STREAMS=14,PKTS=10,PKT_SPD_MIN=0.0009,PKT_SPD_MAX=0.0024;
-const HALO_INT=3200,HALO_MAX_R=140,HALO_DUR=2600,HALO_PEAK=0.1;
-const HALO_RGB='84,112,232';
-const MOUSE_R=160,MOUSE_PUSH=10;
-
-let gridPts=[],streams=[],attractors=[],cfMouseX=-9999,cfMouseY=-9999;
-
-function quadBez(ox,oy,cx,cy,dx,dy,t){
-  const m=1-t;
-  return{x:m*m*ox+2*m*t*cx+t*t*dx, y:m*m*oy+2*m*t*cy+t*t*dy};
-}
-
-function initConvergence(){
-  gridPts=[];
-  const cols=Math.ceil(W/GRID_SP)+2, rows=Math.ceil(H/GRID_SP)+2;
-  for(let r=0;r<rows;r++){
-    for(let c=0;c<cols;c++){
-      const bx=c*GRID_SP, by=r*GRID_SP;
-      const yN=by/H;
-      const pF=1-GRID_PERSP*(1-Math.max(0,yN));
-      const cx2=W/2;
-      gridPts.push({
-        x:cx2+(bx-cx2)*pF, y:by,
-        baseOp:GRID_OPB*(0.35+0.65*Math.max(0,Math.min(1,yN))),
-        phase:(c*0.72+r*0.51)
-      });
-    }
-  }
-  attractors=[
-    {x:W*0.1, y:H*0.78, lastPulse:0,   halos:[], flash:0},
-    {x:W*0.84,y:H*0.32, lastPulse:-1200,halos:[], flash:0},
-    {x:W*0.52,y:H*0.92, lastPulse:-2400,halos:[], flash:0}
-  ];
-  streams=[];
-  for(let i=0;i<NUM_STREAMS;i++){
-    const attr=attractors[i%3];
-    const e=Math.random();
-    let ox,oy;
-    if(e<0.3){ox=Math.random()*W;oy=-20;}
-    else if(e<0.55){ox=W+20;oy=Math.random()*H;}
-    else if(e<0.8){ox=-20;oy=Math.random()*H*0.8;}
-    else{ox=Math.random()*W;oy=Math.random()*H*0.25;}
-    const mx=(ox+attr.x)/2+(Math.random()-.5)*320;
-    const my=(oy+attr.y)/2+(Math.random()-.5)*220;
-    const pkts=[];
-    for(let p=0;p<PKTS;p++){
-      pkts.push({t:Math.random(),spd:PKT_SPD_MIN+Math.random()*(PKT_SPD_MAX-PKT_SPD_MIN),op:0.1+Math.random()*0.12});
-    }
-    streams.push({ox,oy,cx:mx,cy:my,dx:attr.x,dy:attr.y,pkts,ai:i%3});
-  }
-}
-
-function drawGrid(time){
-  const t=time*GRID_SPD;
-  for(let i=0;i<gridPts.length;i++){
-    const p=gridPts[i];
-    let op=p.baseOp+GRID_AMP*(Math.sin(t+p.phase)*0.5+0.5);
-    let dx=p.x-cfMouseX, dy=p.y-cfMouseY;
-    const md=Math.sqrt(dx*dx+dy*dy);
-    let px=p.x,py=p.y;
-    if(md<MOUSE_R&&md>0){
-      const pf=(1-md/MOUSE_R);const pe=pf*pf;
-      px+=dx/md*MOUSE_PUSH*pe; py+=dy/md*MOUSE_PUSH*pe;
-      op+=0.055*pe;
-    }
-    ctx.globalAlpha=Math.min(op,0.4);
-    ctx.fillStyle='#f0ede8';
-    ctx.beginPath();ctx.arc(px,py,1.1,0,Math.PI*2);ctx.fill();
-  }
-  ctx.globalAlpha=1;
-}
-
-function drawStreams(){
-  for(let s=0;s<streams.length;s++){
-    const st=streams[s];
-    ctx.beginPath();ctx.moveTo(st.ox,st.oy);
-    ctx.quadraticCurveTo(st.cx,st.cy,st.dx,st.dy);
-    ctx.strokeStyle='rgba(240,237,232,0.06)';ctx.lineWidth=0.6;ctx.stroke();
-    for(let p=0;p<st.pkts.length;p++){
-      const pk=st.pkts[p];
-      pk.t+=pk.spd;
-      if(pk.t>=1){attractors[st.ai].flash=6;pk.t=0;pk.spd=PKT_SPD_MIN+Math.random()*(PKT_SPD_MAX-PKT_SPD_MIN);}
-      const pos=quadBez(st.ox,st.oy,st.cx,st.cy,st.dx,st.dy,pk.t);
-      const r2=Math.round(240-pk.t*55),g2=Math.round(237-pk.t*38),b2=Math.round(232+pk.t*8);
-      const a=pk.op*1.8*Math.sin(pk.t*Math.PI);
-      ctx.globalAlpha=Math.max(0,a);
-      ctx.fillStyle=`rgb(${r2},${g2},${b2})`;
-      ctx.beginPath();ctx.arc(pos.x,pos.y,1.3*(0.55+0.45*pk.t),0,Math.PI*2);ctx.fill();
-    }
-    ctx.globalAlpha=1;
-  }
-}
-
-function drawHalos(time){
-  for(let a=0;a<attractors.length;a++){
-    const at=attractors[a];
-    if(time-at.lastPulse>HALO_INT){at.halos.push({t:time});at.lastPulse=time;}
-    const fb=at.flash>0?0.045:0; if(at.flash>0)at.flash--;
-    const g=ctx.createRadialGradient(at.x,at.y,0,at.x,at.y,42);
-    g.addColorStop(0,`rgba(${HALO_RGB},${0.048+fb})`);
-    g.addColorStop(1,`rgba(${HALO_RGB},0)`);
-    ctx.fillStyle=g;ctx.beginPath();ctx.arc(at.x,at.y,42,0,Math.PI*2);ctx.fill();
-    for(let h=at.halos.length-1;h>=0;h--){
-      const hl=at.halos[h], el=time-hl.t;
-      if(el>HALO_DUR){at.halos.splice(h,1);continue;}
-      const pr=el/HALO_DUR;
-      const rad=20+pr*(HALO_MAX_R-20);
-      const op=HALO_PEAK*(1-pr)*(1-pr);
-      ctx.strokeStyle=`rgba(${HALO_RGB},${op})`;
-      ctx.lineWidth=1.1*(1-pr*0.45);
-      ctx.beginPath();ctx.arc(at.x,at.y,rad,0,Math.PI*2);ctx.stroke();
-    }
-  }
-}
-
-function drawConvergence(time){
-  ctx.clearRect(0,0,W,H);
-  drawGrid(time);
-  requestAnimationFrame(drawConvergence);
-}
-
+let W,H,pts=[];
+const NPTS=90, CONN=120;
 function resz(){
   W=canvas.width=window.innerWidth;
   H=canvas.height=window.innerHeight;
-  initConvergence();
+  canvas2.width=W; canvas2.height=H;
+  if(pts.length===0) pts=Array.from({length:NPTS},()=>({
+    x:Math.random()*W, y:Math.random()*H,
+    vx:(Math.random()-.5)*.12, vy:(Math.random()-.5)*.12
+  }));
+  cols=Math.floor(W/18)+1;
+  drops=Array(cols).fill(0).map(()=>Math.random()*-80);
+}
+function drawPts(){
+  ctx.clearRect(0,0,W,H);
+  pts.forEach(p=>{
+    p.x+=p.vx; p.y+=p.vy;
+    if(p.x<0||p.x>W) p.vx*=-1;
+    if(p.y<0||p.y>H) p.vy*=-1;
+    const spd=Math.sqrt(p.vx*p.vx+p.vy*p.vy);
+    if(spd>0.28){ p.vx=p.vx/spd*.28; p.vy=p.vy/spd*.28; }
+  });
+  for(let i=0;i<pts.length;i++){
+    for(let j=i+1;j<pts.length;j++){
+      const dx=pts[i].x-pts[j].x, dy=pts[i].y-pts[j].y;
+      const d=Math.sqrt(dx*dx+dy*dy);
+      if(d<CONN){
+        const a=(1-d/CONN)*.18;
+        ctx.strokeStyle=`rgba(240,237,232,${a})`;
+        ctx.lineWidth=.8;
+        ctx.beginPath(); ctx.moveTo(pts[i].x,pts[i].y); ctx.lineTo(pts[j].x,pts[j].y); ctx.stroke();
+      }
+    }
+    ctx.fillStyle='rgba(240,237,232,.25)';
+    ctx.beginPath(); ctx.arc(pts[i].x,pts[i].y,1.2,0,Math.PI*2); ctx.fill();
+  }
+  requestAnimationFrame(drawPts);
 }
 
-document.addEventListener('mousemove',e=>{cfMouseX=e.clientX;cfMouseY=e.clientY;});
-document.addEventListener('mouseleave',()=>{cfMouseX=-9999;cfMouseY=-9999;});
+// ── BINARY RAIN CANVAS (bc2) ──────────────────────────
+const canvas2=document.getElementById('bc2'), ctx2=canvas2.getContext('2d');
+let cols=0, drops=[];
+function drawBinary(){
+  ctx2.fillStyle='rgba(6,6,6,.05)';
+  ctx2.fillRect(0,0,W||window.innerWidth,H||window.innerHeight);
+  ctx2.font='12px JetBrains Mono,monospace';
+  for(let i=0;i<cols;i++){
+    const b=Math.random()>.5?'1':'0', v=Math.random();
+    ctx2.fillStyle=v>.95?'rgba(240,237,232,.85)':v>.75?'rgba(240,237,232,.28)':'rgba(240,237,232,.06)';
+    ctx2.fillText(b,i*18,(drops[i]||0)*18);
+    if((drops[i]||0)*18>(H||window.innerHeight)&&Math.random()>.978) drops[i]=0;
+    drops[i]=(drops[i]||0)+.4;
+  }
+}
+setInterval(drawBinary,55);
 
-resz();
-requestAnimationFrame(drawConvergence);
+resz(); drawPts(); drawBinary();
 window.addEventListener('resize',resz);
 
 // ── CANVAS BLEND ON SCROLL ────────────────────────────
