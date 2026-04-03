@@ -84,6 +84,38 @@ nav.scrolled{background:rgba(6,6,6,.75);backdrop-filter:blur(24px);border-bottom
 .hero-meta-l{font-size:11px;color:var(--m);letter-spacing:1px;text-transform:uppercase;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
 
+/* LINEAR HERO SECTION */
+.lhero{position:relative;z-index:2;padding:120px 48px 0;overflow:hidden;background:radial-gradient(ellipse 100% 60% at 50% 0%,#1c1c1e 0%,#060606 70%);}
+.lhero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;}
+.lhero-left{max-width:660px;}
+.lhero-left h2{font-size:clamp(48px,5.5vw,68px);font-weight:700;line-height:1.05;letter-spacing:-2.5px;color:var(--fg);margin-bottom:18px;}
+.lhero-sub{font-size:17px;color:var(--m2);line-height:1.65;max-width:460px;margin-bottom:36px;}
+.lhero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--fg);color:var(--bg);padding:11px 22px;border-radius:6px;font-size:14px;font-weight:700;text-decoration:none;transition:opacity .2s;}
+.lhero-cta:hover{opacity:.88;}
+.lhero-callout{display:flex;align-items:flex-start;gap:9px;padding-top:6px;flex-shrink:0;max-width:240px;}
+.lhero-dot{width:8px;height:8px;border-radius:50%;background:#5470e8;flex-shrink:0;margin-top:4px;animation:lhpulse 2s ease-in-out infinite;}
+@keyframes lhpulse{0%,100%{box-shadow:0 0 0 0 rgba(84,112,232,.5);}60%{box-shadow:0 0 0 5px rgba(84,112,232,0);}}
+.lhero-callout-label{font-size:14px;font-weight:600;color:var(--fg);line-height:1.3;margin-bottom:3px;}
+.lhero-callout-link{font-size:13px;color:var(--m2);text-decoration:none;transition:color .2s;}
+.lhero-callout-link:hover{color:var(--fg);}
+.lhero-screenshot{margin-top:56px;border-radius:12px;border:1px solid rgba(255,255,255,.1);overflow:hidden;box-shadow:0 40px 100px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.04);}
+.lhero-screenshot img{display:block;width:100%;height:auto;}
+.lhero-ph{width:100%;aspect-ratio:16/9;background:#0a0a0a;display:flex;flex-direction:column;}
+.lhero-ph-bar{height:36px;background:rgba(255,255,255,.025);border-bottom:1px solid rgba(255,255,255,.07);display:flex;align-items:center;padding:0 14px;gap:8px;flex-shrink:0;}
+.lph-dots{display:flex;gap:5px;}
+.lphd{width:9px;height:9px;border-radius:50%;}
+.lphd-r{background:#ff5f57;}.lphd-y{background:#febc2e;}.lphd-g{background:#28c840;}
+.lhero-ph-url{font-family:'JetBrains Mono',monospace;font-size:10px;color:#252525;}
+.lhero-ph-body{flex:1;display:flex;align-items:center;justify-content:center;}
+.lhero-ph-hint{font-family:'JetBrains Mono',monospace;font-size:11px;color:#1e1e1e;}
+@media(max-width:768px){
+  .lhero{padding:80px 20px 0;}
+  .lhero-top{flex-direction:column;gap:28px;}
+  .lhero-left h2{letter-spacing:-2px;}
+  .lhero-callout{max-width:100%;}
+  .lhero-cta{width:100%;justify-content:center;}
+}
+
 /* TICKER */
 .ticker{position:relative;z-index:2;border-top:1px solid var(--b);border-bottom:1px solid var(--b);padding:11px 0;overflow:hidden;background:rgba(240,237,232,.02);}
 .tick-track{display:flex;animation:tick 32s linear infinite;width:max-content;gap:0;}
@@ -364,6 +396,36 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
     <div class="tick-item"><span class="tick-live">✓</span> E-mail campagne verstuurd · 2.400 contacten</div>
   </div>
 </div>
+
+<!-- LINEAR HERO SECTION -->
+<section class="lhero r">
+  <div class="lhero-top">
+    <div class="lhero-left">
+      <h2>Het AI-systeem voor<br>jullie bedrijf</h2>
+      <p class="lhero-sub">Een systeem dat jullie bedrijf kent, jullie processen automatiseert, en alles samenbrengt.</p>
+      <a href="#contact" class="lhero-cta mag-btn">Plan een Gratis Gesprek in →</a>
+    </div>
+    <div class="lhero-callout">
+      <div class="lhero-dot"></div>
+      <div>
+        <div class="lhero-callout-label">Nu live: AI Agents voor bedrijven</div>
+        <a href="#contact" class="lhero-callout-link">zenithintelligence.ai →</a>
+      </div>
+    </div>
+  </div>
+  <div class="lhero-screenshot">
+    <!-- Vervang door: <img src="dashboard.png" alt="Zenith Dashboard"> -->
+    <div class="lhero-ph">
+      <div class="lhero-ph-bar">
+        <div class="lph-dots"><div class="lphd lphd-r"></div><div class="lphd lphd-y"></div><div class="lphd lphd-g"></div></div>
+        <span class="lhero-ph-url">dashboard.zenithintelligence.ai</span>
+      </div>
+      <div class="lhero-ph-body">
+        <span class="lhero-ph-hint">// dashboard screenshot volgt</span>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- STATS -->
 <div class="stats-wrap" id="stats">
