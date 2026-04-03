@@ -49,10 +49,6 @@ nav.scrolled{background:rgba(6,6,6,.75);backdrop-filter:blur(24px);border-bottom
 .hero-mesh::after{content:'';position:absolute;width:600px;height:600px;bottom:-100px;left:-100px;border-radius:50%;background:radial-gradient(circle,rgba(240,237,232,.03) 0%,transparent 70%);animation:meshMove2 15s ease-in-out infinite;}
 @keyframes meshMove{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(-80px,60px) scale(1.1);}66%{transform:translate(60px,-40px) scale(.95);}}
 @keyframes meshMove2{0%,100%{transform:translate(0,0);}50%{transform:translate(100px,-80px);}}
-.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:28px;opacity:0;animation:fadeUp .6s .1s forwards;}
-.heb{width:5px;height:5px;background:var(--fg);border-radius:50%;animation:pulse 2s infinite;}
-@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(240,237,232,.4);}50%{opacity:.4;box-shadow:0 0 0 8px rgba(240,237,232,0);}}
-.het{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m2);letter-spacing:3px;text-transform:uppercase;}
 .hero-headline{overflow:hidden;}
 .hero-headline h1{font-size:clamp(66px,13vw,208px);font-weight:900;line-height:1;letter-spacing:-6px;position:relative;color:#f5f5f2;}
 .rotating-word{display:inline;color:#D6E4FF;}
@@ -294,7 +290,6 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
   .hero-headline h1{letter-spacing:-2px;font-size:clamp(44px,12.8vw,64px);}
   .rotating-line{white-space:nowrap;}
   .hero-eyebrow{margin-bottom:20px;}
-  .het{font-size:9px;letter-spacing:2px;}
   .hero-bottom{margin-top:32px;gap:0;flex-direction:column;align-items:stretch;}
   .hero-desc p{font-size:14px;line-height:1.65;margin-bottom:24px;}
   .hero-cta{width:100%;justify-content:center;padding:18px 32px;font-size:15px;border-radius:4px;}
@@ -344,10 +339,6 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
 <!-- HERO -->
 <section class="hero">
   <div class="hero-mesh"></div>
-  <div class="hero-eyebrow">
-    <div class="heb"></div>
-    <span class="het" id="htag">00110101 · Beschikbaar · 10110010</span>
-  </div>
   <div class="hero-headline">
     <h1 id="hero-h1">
       <span class="hero-line" data-text="Bedrijven">Bedrijven</span>
@@ -866,10 +857,6 @@ const ioCu=new IntersectionObserver(entries=>{
 },{threshold:.4});
 document.querySelectorAll('.stat-item').forEach(el=>ioCu.observe(el));
 
-// ── HTAG CYCLE ────────────────────────────────────────
-const tags=['00110101 · Beschikbaar · 10110010','01101011 · Nu live · 11001010'];
-let ti=0;
-setInterval(()=>{ ti=(ti+1)%tags.length; document.getElementById('htag').textContent=tags[ti]; },2800);
 
 // ── SCROLL HANDLER ────────────────────────────────────
 window.addEventListener('scroll',()=>{ updProg(); updNav(); parallax(); blendCanvases(); },{passive:true});
