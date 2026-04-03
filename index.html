@@ -884,7 +884,7 @@ const ioCu=new IntersectionObserver(entries=>{
 document.querySelectorAll('.stat-item').forEach(el=>ioCu.observe(el));
 
 // ── HTAG CYCLE ────────────────────────────────────────
-const tags=['00110101 · Beschikbaar · 10110010','10110010 · Zenith AI · 01001101','01101011 · Nu live · 11001010'];
+const tags=['00110101 · Beschikbaar · 10110010','01101011 · Nu live · 11001010'];
 let ti=0;
 setInterval(()=>{ ti=(ti+1)%tags.length; document.getElementById('htag').textContent=tags[ti]; },2800);
 
