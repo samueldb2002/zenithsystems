@@ -206,16 +206,16 @@ nav.scrolled{background:rgba(6,6,6,.75);backdrop-filter:blur(24px);border-bottom
 .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0;}
 
 /* CLIENT LOGOS */
-.client-logos{display:flex;align-items:center;justify-content:center;gap:72px;flex-wrap:wrap;padding:0 48px;}
-.client-logo-item{display:flex;align-items:center;justify-content:center;}
-.cl-img{height:64px;width:auto;display:block;object-fit:contain;transition:opacity .3s;}
-.cl-wall{height:200px !important;filter:saturate(0) brightness(0) invert(1) contrast(10);opacity:1;}
-.cl-wall:hover{opacity:1;}
-.cl-hans{filter:grayscale(1) invert(1) brightness(1.2);opacity:.75;height:110px !important;}
-.cl-hans:hover{opacity:1;}
-.cl-svg{height:50px;opacity:.7;transition:opacity .3s;}
+.client-logos{display:flex;width:max-content;align-items:center;animation:logoScroll 20s linear infinite;}
+.client-logo-item{display:flex;align-items:center;justify-content:center;padding:0 56px;}
+.cl-img{height:36px;width:auto;display:block;object-fit:contain;transition:opacity .3s;opacity:.6;}
+.cl-img:hover{opacity:1;}
+.cl-wall{height:80px !important;filter:saturate(0) brightness(0) invert(1) contrast(10);}
+.cl-hans{filter:grayscale(1) invert(1) brightness(1.2);height:48px !important;}
+.cl-svg{height:28px;opacity:.6;transition:opacity .3s;}
 .cl-svg:hover{opacity:1;}
-@media(max-width:768px){.client-logos{gap:40px;padding:0 20px;}.cl-img{height:44px;}.cl-svg{height:36px;}}
+@keyframes logoScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:768px){.client-logo-item{padding:0 36px;}.cl-img{height:28px;}.cl-svg{height:22px;}}
 
 /* CASE STUDY */
 .case-section{position:relative;z-index:2;border-bottom:1px solid var(--b);padding:120px 48px;}
@@ -366,16 +366,13 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
 <!-- CLIENTS -->
 <div class="marquee-wrap">
 <div class="client-logos">
-    <div class="client-logo-item">
-      <img src="logo-thewall.png" alt="The Wall" class="cl-img cl-wall"/>
-    </div>
-    <div class="client-logo-item">
-      <img src="logo-hans.webp" alt="Hans" class="cl-img cl-hans"/>
-    </div>
-    <div class="client-logo-item">
-      <img src="logo-renessence.svg" alt="Renessence" class="cl-svg"/>
-    </div>
-  </div>
+    <div class="client-logo-item"><img src="logo-thewall.png" alt="The Wall" class="cl-img cl-wall"/></div>
+    <div class="client-logo-item"><img src="logo-hans.webp" alt="Hans" class="cl-img cl-hans"/></div>
+    <div class="client-logo-item"><img src="logo-renessence.svg" alt="Renessence" class="cl-svg"/></div>
+    <div class="client-logo-item"><img src="logo-thewall.png" alt="The Wall" class="cl-img cl-wall"/></div>
+    <div class="client-logo-item"><img src="logo-hans.webp" alt="Hans" class="cl-img cl-hans"/></div>
+    <div class="client-logo-item"><img src="logo-renessence.svg" alt="Renessence" class="cl-svg"/></div>
+</div>
 </div>
 
 <!-- LINEAR HERO SECTION -->
