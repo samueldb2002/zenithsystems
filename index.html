@@ -43,12 +43,7 @@ nav.scrolled{background:rgba(6,6,6,.75);backdrop-filter:blur(24px);border-bottom
 .mag-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;}
 
 /* HERO */
-.hero{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:100px 48px 72px;overflow:hidden;}
-.hero-mesh{position:absolute;inset:0;overflow:hidden;pointer-events:none;}
-.hero-mesh::before{content:'';position:absolute;width:900px;height:900px;top:-200px;right:-150px;border-radius:50%;background:radial-gradient(circle,rgba(240,237,232,.045) 0%,transparent 70%);animation:meshMove 12s ease-in-out infinite;}
-.hero-mesh::after{content:'';position:absolute;width:600px;height:600px;bottom:-100px;left:-100px;border-radius:50%;background:radial-gradient(circle,rgba(240,237,232,.03) 0%,transparent 70%);animation:meshMove2 15s ease-in-out infinite;}
-@keyframes meshMove{0%,100%{transform:translate(0,0) scale(1);}33%{transform:translate(-80px,60px) scale(1.1);}66%{transform:translate(60px,-40px) scale(.95);}}
-@keyframes meshMove2{0%,100%{transform:translate(0,0);}50%{transform:translate(100px,-80px);}}
+.hero{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:100px 48px 72px;}
 .hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:28px;opacity:0;animation:fadeUp .6s .1s forwards;}
 .heb{width:5px;height:5px;background:var(--fg);border-radius:50%;animation:pulse 2s infinite;}
 @keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(240,237,232,.4);}50%{opacity:.4;box-shadow:0 0 0 8px rgba(240,237,232,0);}}
@@ -343,7 +338,6 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-mesh"></div>
   <div class="hero-eyebrow">
     <div class="heb"></div>
     <span class="het" id="htag">00110101 · Beschikbaar · 10110010</span>
