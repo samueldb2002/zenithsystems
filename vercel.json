@@ -2,7 +2,12 @@
   "cleanUrls": true,
   "rewrites": [
     {
-      "source": "/((?!.*\\.[a-zA-Z0-9]+$).*)",
+      "source": "/",
+      "has": [{ "type": "host", "value": "frontdesk.zenithintelligence.ai" }],
+      "destination": "/frontdesk.html"
+    },
+    {
+      "source": "/:path((?!.*\\.[a-zA-Z0-9]+$).+)",
       "has": [{ "type": "host", "value": "frontdesk.zenithintelligence.ai" }],
       "destination": "/frontdesk.html"
     },
