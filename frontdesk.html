@@ -69,6 +69,20 @@ nav.scrolled{background:rgba(6,6,6,.75);backdrop-filter:blur(24px);border-bottom
 .hero-meta-l{font-size:11px;color:var(--m);letter-spacing:1px;text-transform:uppercase;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
 
+/* MARQUEE LOGOS */
+.marquee-wrap{position:relative;z-index:2;padding:48px 0;overflow:hidden;-webkit-mask-image:linear-gradient(to right,transparent 0%,black 12%,black 88%,transparent 100%);mask-image:linear-gradient(to right,transparent 0%,black 12%,black 88%,transparent 100%);}
+.marquee-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);letter-spacing:3px;text-transform:uppercase;text-align:center;margin-bottom:32px;}
+.client-logos{display:flex;width:max-content;align-items:center;animation:logoScroll 28s linear infinite;}
+.client-logo-item{display:flex;align-items:center;justify-content:center;padding:0 56px;}
+.cl-img{height:32px;width:auto;display:block;object-fit:contain;opacity:.55;transition:opacity .3s;filter:brightness(0) invert(1);}
+.cl-img:hover{opacity:.9;}
+.cl-wall{height:100px !important;}
+.cl-hans{height:32px !important;}
+.cl-svg{height:26px;opacity:.55;transition:opacity .3s;filter:brightness(0) invert(1);}
+.cl-svg:hover{opacity:.9;}
+@keyframes logoScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:768px){.client-logo-item{padding:0 36px;}.cl-img{height:24px;}.cl-svg{height:20px;}}
+
 /* TICKER */
 .ticker{position:relative;z-index:2;border-top:1px solid var(--b);border-bottom:1px solid var(--b);padding:11px 0;overflow:hidden;background:rgba(240,237,232,.02);}
 .tick-track{display:flex;animation:tick 32s linear infinite;width:max-content;gap:0;}
@@ -366,6 +380,24 @@ footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:fl
     </div>
   </div>
 </section>
+
+<!-- CLIENTS -->
+<div class="marquee-wrap">
+<div class="client-logos">
+    <div class="client-logo-item"><img src="logo-thewall.png" alt="The Wall" class="cl-img cl-wall"/></div>
+    <div class="client-logo-item"><img src="logo-hans.webp" alt="Hans" class="cl-img cl-hans"/></div>
+    <div class="client-logo-item"><img src="logo-renessence.svg" alt="Renessence" class="cl-svg"/></div>
+    <div class="client-logo-item"><img src="logo-thewall.png" alt="The Wall" class="cl-img cl-wall"/></div>
+    <div class="client-logo-item"><img src="logo-hans.webp" alt="Hans" class="cl-img cl-hans"/></div>
+    <div class="client-logo-item"><img src="logo-renessence.svg" alt="Renessence" class="cl-svg"/></div>
+    <div class="client-logo-item"><img src="logo-thewall.png" alt="The Wall" class="cl-img cl-wall"/></div>
+    <div class="client-logo-item"><img src="logo-hans.webp" alt="Hans" class="cl-img cl-hans"/></div>
+    <div class="client-logo-item"><img src="logo-renessence.svg" alt="Renessence" class="cl-svg"/></div>
+    <div class="client-logo-item"><img src="logo-thewall.png" alt="The Wall" class="cl-img cl-wall"/></div>
+    <div class="client-logo-item"><img src="logo-hans.webp" alt="Hans" class="cl-img cl-hans"/></div>
+    <div class="client-logo-item"><img src="logo-renessence.svg" alt="Renessence" class="cl-svg"/></div>
+</div>
+</div>
 
 <!-- TICKER -->
 <div class="ticker">
