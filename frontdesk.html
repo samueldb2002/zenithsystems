@@ -881,7 +881,7 @@ const ioCu=new IntersectionObserver(entries=>{
 document.querySelectorAll('.stat-item').forEach(el=>ioCu.observe(el));
 
 // ── HTAG CYCLE ────────────────────────────────────────
-const tags=['AI FRONTDESK · NU LIVE · WHATSAPP','PILOT · 50% KORTING · 5 PLEKKEN','24/7 BEREIKBAAR · GEEN PAUZE','LIVE BINNEN 2 WEKEN'];
+const tags=['AI FRONTDESK · NU LIVE · WHATSAPP','24/7 BEREIKBAAR · GEEN PAUZE','LIVE BINNEN 2 WEKEN'];
 let ti=0;
 setInterval(()=>{ ti=(ti+1)%tags.length; document.getElementById('htag').textContent=tags[ti]; },3200);
 
