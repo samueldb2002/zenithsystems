@@ -1,0 +1,14 @@
+{
+  "cleanUrls": true,
+  "rewrites": [
+    {
+      "source": "/",
+      "has": [{ "type": "host", "value": "frontdesk.zenithintelligence.ai" }],
+      "destination": "/frontdesk.html"
+    },
+    {
+      "source": "/frontdesk",
+      "destination": "/frontdesk.html"
+    }
+  ]
+}

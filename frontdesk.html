@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>AI Frontdesk voor Kappers & Salons | 24/7 WhatsApp Receptie | Zenith Intelligence</title>
+<meta name="description" content="Een AI frontdesk medewerker die afspraken inplant, vragen beantwoordt en herinneringen stuurt via WhatsApp. 24/7. Voor de prijs van 1 dag receptioniste per maand."/>
+<meta property="og:title" content="AI Frontdesk voor Kappers & Salons"/>
+<meta property="og:description" content="Mis nooit meer een afspraak. AI receptie via WhatsApp vanaf €350/maand."/>
+<meta property="og:type" content="website"/>
+<link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+:root{--bg:#060606;--fg:#f0ede8;--acc:#25D366;--m:#555;--m2:#888;--b:rgba(240,237,232,.07);--b2:rgba(240,237,232,.13);}
+html{scroll-behavior:smooth;}
+body{background:var(--bg);color:var(--fg);font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;line-height:1.6;}
+#wrapper{overflow-x:hidden;}
+::selection{background:var(--fg);color:var(--bg);}
+
+/* GRAIN */
+body::after{content:'';position:fixed;inset:0;pointer-events:none;z-index:9000;opacity:.035;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:200px 200px;}
+
+/* PROGRESS */
+#prog{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,rgba(240,237,232,0),var(--fg));z-index:9999;width:0;pointer-events:none;transition:width .05s;}
+
+/* CANVAS */
+#bc{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:1;opacity:1;transition:opacity .6s ease;}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:500;height:64px;padding:0 48px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,border-color .4s;-webkit-transform:translate3d(0,0,0);transform:translate3d(0,0,0);}
+nav.scrolled{background:rgba(6,6,6,.75);backdrop-filter:blur(24px);border-bottom:1px solid var(--b);}
+.nl{text-decoration:none;display:inline-flex;align-items:center;}
+.nl img{height:28px;width:auto;display:block;}
+.nl-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m2);letter-spacing:2px;text-transform:uppercase;margin-left:14px;border-left:1px solid var(--b);padding-left:14px;}
+.nr{display:flex;gap:28px;align-items:center;}
+.nla{color:var(--m2);text-decoration:none;font-size:11px;letter-spacing:.3px;transition:color .2s;font-family:'JetBrains Mono',monospace;}
+.nla:hover{color:var(--fg);}
+.nb{padding:9px 20px;border:1px solid var(--b2);border-radius:3px;color:var(--fg);font-size:13px;font-weight:600;text-decoration:none;transition:background .2s,border-color .2s;}
+.nb:hover{background:rgba(240,237,232,.08);border-color:var(--b2);}
+.mag-btn{position:relative;display:inline-flex;align-items:center;justify-content:center;}
+
+/* HERO */
+.hero{position:relative;z-index:2;min-height:100vh;display:flex;flex-direction:column;justify-content:flex-end;padding:100px 48px 72px;}
+.hero-eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:28px;opacity:0;animation:fadeUp .6s .1s forwards;}
+.heb{width:5px;height:5px;background:var(--acc);border-radius:50%;animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(37,211,102,.4);}50%{opacity:.4;box-shadow:0 0 0 8px rgba(37,211,102,0);}}
+.het{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m2);letter-spacing:3px;text-transform:uppercase;}
+.hero-headline{overflow:hidden;}
+.hero-headline h1{font-size:clamp(56px,11vw,170px);font-weight:900;line-height:1;letter-spacing:-5px;position:relative;color:#f5f5f2;}
+.rotating-word{display:inline;color:#D6E4FF;}
+.char{display:inline-block;opacity:0;transform:translateY(80px) rotate(3deg);will-change:transform,opacity;}
+.char.space{width:.25em;}
+.hero-line{overflow:hidden;display:block;}
+.rotating-line{overflow:visible;opacity:0;transition:opacity .4s ease;}
+.rot-caret{display:inline-block;width:2px;height:.58em;background:rgba(240,237,232,.48);margin-left:.06em;vertical-align:-.06em;animation:caretBlink 1.1s ease-in-out infinite;}
+@keyframes caretBlink{0%,100%{opacity:1;}50%{opacity:0;}}
+.hero-bottom{display:flex;align-items:flex-end;justify-content:space-between;margin-top:48px;gap:40px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .9s forwards;}
+.hero-desc p{color:var(--m2);font-size:15px;line-height:1.8;margin-bottom:28px;max-width:430px;}
+.hero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--fg);color:var(--bg);padding:15px 32px;border-radius:3px;font-size:14px;font-weight:700;text-decoration:none;letter-spacing:.2px;transition:opacity .2s;}
+.hero-cta:hover{opacity:.88;}
+.hero-cta-secondary{display:inline-flex;align-items:center;gap:8px;color:var(--m2);text-decoration:none;font-size:13px;margin-left:18px;transition:color .2s;}
+.hero-cta-secondary:hover{color:var(--fg);}
+.hero-meta{display:flex;flex-direction:column;gap:6px;text-align:right;}
+.hero-meta-n{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;line-height:1;}
+.hero-meta-l{font-size:11px;color:var(--m);letter-spacing:1px;text-transform:uppercase;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:none;}}
+
+/* TICKER */
+.ticker{position:relative;z-index:2;border-top:1px solid var(--b);border-bottom:1px solid var(--b);padding:11px 0;overflow:hidden;background:rgba(240,237,232,.02);}
+.tick-track{display:flex;animation:tick 32s linear infinite;width:max-content;gap:0;}
+.tick-item{display:flex;align-items:center;gap:8px;padding:0 32px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);letter-spacing:1.5px;border-right:1px solid var(--b);white-space:nowrap;}
+.tick-live{color:var(--acc);font-weight:700;}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+/* LINEAR HERO SECTION (intro met WhatsApp mockup) */
+.lhero{position:relative;z-index:2;padding:120px 48px 0;overflow:hidden;background:radial-gradient(ellipse 100% 60% at 50% 0%,#1c1c1e 0%,#060606 70%);}
+.lhero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:40px;}
+.lhero-left{max-width:660px;}
+.lhero-left h2{font-size:clamp(40px,5vw,62px);font-weight:700;line-height:1.05;letter-spacing:-2.5px;color:var(--fg);margin-bottom:18px;}
+.lhero-sub{font-size:17px;color:var(--m2);line-height:1.65;max-width:480px;margin-bottom:36px;}
+.lhero-cta{display:inline-flex;align-items:center;gap:10px;background:var(--fg);color:var(--bg);padding:11px 22px;border-radius:6px;font-size:14px;font-weight:700;text-decoration:none;transition:opacity .2s;}
+.lhero-cta:hover{opacity:.88;}
+.lhero-callout{display:flex;align-items:flex-start;gap:9px;padding-top:6px;flex-shrink:0;max-width:260px;}
+.lhero-dot{width:8px;height:8px;border-radius:50%;background:var(--acc);flex-shrink:0;margin-top:4px;animation:lhpulse 2s ease-in-out infinite;}
+@keyframes lhpulse{0%,100%{box-shadow:0 0 0 0 rgba(37,211,102,.5);}60%{box-shadow:0 0 0 5px rgba(37,211,102,0);}}
+.lhero-callout-label{font-size:14px;font-weight:600;color:var(--fg);line-height:1.3;margin-bottom:3px;}
+.lhero-callout-link{font-size:13px;color:var(--m2);text-decoration:none;transition:color .2s;}
+.lhero-callout-link:hover{color:var(--fg);}
+
+/* WHATSAPP MOCKUP */
+.wa-wrap{margin:56px auto 0;max-width:520px;}
+.wa-phone{background:#0a0a0a;border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:0;box-shadow:0 40px 100px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.04);overflow:hidden;}
+.wa-header{background:#1f2c33;padding:14px 18px;display:flex;align-items:center;gap:12px;border-bottom:1px solid rgba(255,255,255,.05);}
+.wa-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#25D366 0%,#128C7E 100%);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#0a0a0a;flex-shrink:0;}
+.wa-h-name{font-size:14px;font-weight:600;color:#e9edef;line-height:1.2;}
+.wa-h-status{font-size:11px;color:var(--acc);margin-top:2px;display:flex;align-items:center;gap:5px;}
+.wa-h-status::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--acc);}
+.wa-body{padding:24px 18px;display:flex;flex-direction:column;gap:8px;background:#0b141a;min-height:380px;}
+.wa-msg{max-width:78%;padding:8px 12px;border-radius:7px;font-size:13.5px;line-height:1.4;position:relative;}
+.wa-msg-user{align-self:flex-end;background:#005c4b;color:#e9edef;border-bottom-right-radius:0;}
+.wa-msg-agent{align-self:flex-start;background:#202c33;color:#e9edef;border-bottom-left-radius:0;}
+.wa-msg-time{font-size:9.5px;color:rgba(233,237,239,.5);margin-top:4px;text-align:right;letter-spacing:.2px;}
+.wa-typing{display:flex;align-items:center;gap:4px;align-self:flex-start;background:#202c33;padding:10px 14px;border-radius:7px;border-bottom-left-radius:0;}
+.wa-typing span{width:6px;height:6px;border-radius:50%;background:#888;animation:waTyp 1.4s infinite;}
+.wa-typing span:nth-child(2){animation-delay:.2s;}
+.wa-typing span:nth-child(3){animation-delay:.4s;}
+@keyframes waTyp{0%,80%,100%{opacity:.3;transform:scale(.8);}40%{opacity:1;transform:scale(1.1);}}
+
+/* STATS */
+.stats-wrap{position:relative;z-index:2;padding:120px 48px;border-bottom:1px solid var(--b);}
+.stats-inner{max-width:1300px;margin:0 auto;}
+.stats-top{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:80px;flex-wrap:wrap;gap:24px;}
+.stats-top h2{font-size:clamp(40px,5.5vw,80px);font-weight:700;letter-spacing:-3px;line-height:.95;}
+.stats-top p{color:var(--m2);font-size:13px;max-width:340px;line-height:1.75;font-family:'JetBrains Mono',monospace;}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--b);}
+.stat-item{padding:40px 0 40px 40px;border-right:1px solid var(--b);position:relative;overflow:hidden;}
+.stat-item::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:var(--fg);transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.16,1,.3,1);}
+.stat-item.on::before{transform:scaleX(1);}
+.stat-item:last-child{border-right:none;}
+.stat-n{font-family:'JetBrains Mono',monospace;font-size:clamp(44px,5vw,72px);font-weight:700;line-height:1;letter-spacing:-3px;}
+.stat-l{font-size:13px;color:var(--m2);margin-top:10px;line-height:1.6;}
+
+/* SERVICES (wat doet de agent) */
+.svc-section{position:relative;z-index:2;padding:120px 0;border-bottom:1px solid var(--b);}
+.svc-section-head{padding:0 48px 72px;display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:24px;}
+.svc-section-head h2{font-size:clamp(40px,5.5vw,80px);font-weight:700;letter-spacing:-3px;line-height:.95;}
+.svc-section-head p{color:var(--m2);font-size:14px;max-width:380px;line-height:1.75;}
+.svc-bands{border-top:1px solid var(--b);}
+.svc-band{display:grid;grid-template-columns:180px 1fr;align-items:start;padding:40px 48px;border-bottom:1px solid var(--b);position:relative;overflow:hidden;cursor:default;transition:background .3s;}
+.svc-band::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:var(--fg);transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1);}
+.svc-band:hover::before{transform:scaleX(1);}
+.svc-band:hover{background:rgba(240,237,232,.02);}
+.svc-band-num{font-size:clamp(72px,7vw,96px);font-weight:900;line-height:.9;letter-spacing:-4px;color:var(--fg);user-select:none;}
+.svc-band:hover .svc-band-num{opacity:.7;}
+.svc-band-content{padding-top:8px;}
+.svc-band-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
+.svc-band-title{font-size:clamp(22px,2.4vw,32px);font-weight:700;letter-spacing:-1px;line-height:1.1;margin-bottom:12px;transition:transform .3s cubic-bezier(.16,1,.3,1);}
+.svc-band:hover .svc-band-title{transform:translateX(6px);}
+.svc-band-desc{font-size:13px;color:var(--m2);line-height:1.8;max-width:580px;margin-bottom:20px;}
+.svc-band-tag{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);border:1px solid var(--b);padding:5px 10px;border-radius:2px;display:inline-block;letter-spacing:1px;}
+
+/* PROCESS - INVERTED */
+.inv-sec{position:relative;z-index:2;background:var(--fg);color:var(--bg);}
+.inv-inner{max-width:1300px;margin:0 auto;padding:120px 48px;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.sec-tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:3px;text-transform:uppercase;margin-bottom:20px;opacity:.45;}
+.inv-sec .sec-tag{color:var(--bg);}
+.inv-h2{font-size:clamp(40px,5vw,68px);font-weight:700;letter-spacing:-3px;line-height:.95;color:var(--bg);margin-bottom:24px;}
+.inv-sub{font-size:15px;line-height:1.8;color:rgba(6,6,6,.55);max-width:400px;}
+.inv-steps{display:flex;flex-direction:column;margin-top:8px;}
+.inv-step{display:grid;grid-template-columns:56px 1fr;gap:0;padding:28px 0;border-bottom:1px solid rgba(6,6,6,.1);cursor:default;}
+.inv-step:last-child{border-bottom:none;}
+.inv-step:hover .inv-s-title{transform:translateX(6px);}
+.inv-sn{font-family:'JetBrains Mono',monospace;font-size:11px;color:rgba(6,6,6,.3);padding-top:2px;}
+.inv-s-title{font-size:17px;font-weight:600;color:var(--bg);margin-bottom:5px;transition:transform .3s cubic-bezier(.16,1,.3,1);}
+.inv-s-desc{font-size:13px;color:rgba(6,6,6,.5);line-height:1.65;}
+.inv-right{position:sticky;top:100px;}
+.inv-terminal{background:var(--bg);border-radius:6px;overflow:hidden;margin-bottom:16px;}
+.inv-tbar{padding:12px 16px;display:flex;gap:6px;align-items:center;border-bottom:1px solid rgba(240,237,232,.07);}
+.dot{width:10px;height:10px;border-radius:50%;}
+.dot-r{background:#ff5f57;}.dot-y{background:#febc2e;}.dot-g{background:#28c840;}
+.inv-ttitle{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);margin-left:auto;letter-spacing:.5px;}
+.inv-tbody{padding:22px 20px;}
+.tl{font-family:'JetBrains Mono',monospace;font-size:12px;line-height:2.1;}
+.tp{color:var(--fg);}.tc2{color:var(--fg);}.to{color:#4ade80;}.tm{color:var(--m);}
+.blink{display:inline-block;width:7px;height:14px;background:var(--fg);animation:bl .8s step-end infinite;vertical-align:middle;margin-left:2px;}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:0}}
+.inv-metrics{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.inv-m{background:var(--bg);border:1px solid rgba(240,237,232,.08);border-radius:5px;padding:18px;}
+.inv-mn{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700;color:var(--fg);line-height:1;}
+.inv-ml{font-size:11px;color:var(--m);margin-top:5px;}
+
+/* PRICING */
+.pricing-sec{position:relative;z-index:2;padding:120px 48px;border-bottom:1px solid var(--b);}
+.pricing-inner{max-width:1300px;margin:0 auto;}
+.pricing-head{text-align:center;margin-bottom:72px;}
+.pricing-head .sec-tag{margin-bottom:18px;opacity:.45;color:var(--m2);}
+.pricing-head h2{font-size:clamp(40px,5.5vw,76px);font-weight:700;letter-spacing:-3px;line-height:.95;margin-bottom:16px;}
+.pricing-head p{font-size:15px;color:var(--m2);max-width:520px;margin:0 auto;line-height:1.7;}
+.pricing-pilot{display:inline-flex;align-items:center;gap:8px;margin-top:24px;padding:8px 16px;border:1px solid var(--b2);border-radius:30px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--fg);letter-spacing:1px;text-transform:uppercase;}
+.pricing-pilot::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--acc);animation:pulse 2s infinite;}
+.pricing-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;max-width:920px;margin:0 auto;}
+.pc{background:rgba(240,237,232,.025);border:1px solid var(--b);border-radius:8px;padding:40px 32px;display:flex;flex-direction:column;position:relative;transition:border-color .3s,background .3s;}
+.pc:hover{border-color:var(--b2);background:rgba(240,237,232,.04);}
+.pc-popular{border-color:rgba(37,211,102,.3);}
+.pc-popular::before{content:'POPULAIR';position:absolute;top:-12px;right:24px;background:var(--acc);color:#0a0a0a;font-family:'JetBrains Mono',monospace;font-size:9px;font-weight:700;padding:5px 10px;border-radius:3px;letter-spacing:2px;}
+.pc-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);letter-spacing:2px;text-transform:uppercase;margin-bottom:14px;}
+.pc-name{font-size:26px;font-weight:700;letter-spacing:-1px;margin-bottom:8px;}
+.pc-target{font-size:13px;color:var(--m2);margin-bottom:28px;line-height:1.5;min-height:38px;}
+.pc-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:6px;}
+.pc-price{font-family:'JetBrains Mono',monospace;font-size:44px;font-weight:700;line-height:1;letter-spacing:-2px;}
+.pc-price-unit{font-size:13px;color:var(--m2);}
+.pc-setup{font-size:12px;color:var(--m);font-family:'JetBrains Mono',monospace;margin-bottom:28px;padding-bottom:24px;border-bottom:1px solid var(--b);}
+.pc-features{display:flex;flex-direction:column;gap:12px;margin-bottom:32px;flex:1;}
+.pc-feat{display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(240,237,232,.78);line-height:1.5;}
+.pc-feat::before{content:'';flex-shrink:0;width:14px;height:14px;border-radius:50%;background:rgba(37,211,102,.12);border:1px solid rgba(37,211,102,.3);margin-top:2px;background-image:url("data:image/svg+xml,%3Csvg width='10' height='10' viewBox='0 0 10 10' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 5L4 7L8 3' stroke='%2325D366' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;}
+.pc-feat-off{color:rgba(240,237,232,.3);}
+.pc-feat-off::before{background:rgba(240,237,232,.04);border-color:var(--b);background-image:none;}
+.pc-cta{display:flex;align-items:center;justify-content:center;gap:8px;padding:14px 22px;border-radius:4px;font-size:14px;font-weight:700;text-decoration:none;letter-spacing:.2px;transition:opacity .2s,background .2s;}
+.pc-cta-primary{background:var(--fg);color:var(--bg);}
+.pc-cta-primary:hover{opacity:.88;}
+.pc-cta-secondary{background:transparent;border:1px solid var(--b2);color:var(--fg);}
+.pc-cta-secondary:hover{background:rgba(240,237,232,.06);}
+
+/* COMPARISON */
+.comparison{margin-top:80px;max-width:920px;margin-left:auto;margin-right:auto;padding:36px;background:rgba(240,237,232,.03);border:1px solid var(--b);border-radius:8px;display:grid;grid-template-columns:1fr 1px 1fr;gap:36px;align-items:center;}
+.comp-side{text-align:center;}
+.comp-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--m);letter-spacing:2px;text-transform:uppercase;margin-bottom:10px;}
+.comp-amount{font-family:'JetBrains Mono',monospace;font-size:32px;font-weight:700;letter-spacing:-1px;margin-bottom:6px;}
+.comp-amount.muted{color:var(--m2);text-decoration:line-through;text-decoration-color:rgba(240,237,232,.2);}
+.comp-amount.win{color:var(--acc);}
+.comp-detail{font-size:12px;color:var(--m2);}
+.comp-divider{background:var(--b);height:60px;width:1px;justify-self:center;}
+
+/* FAQ */
+.faq-sec{position:relative;z-index:2;padding:120px 48px;border-bottom:1px solid var(--b);}
+.faq-inner{max-width:900px;margin:0 auto;}
+.faq-head{text-align:center;margin-bottom:64px;}
+.faq-head .sec-tag{margin-bottom:18px;color:var(--m2);}
+.faq-head h2{font-size:clamp(36px,5vw,68px);font-weight:700;letter-spacing:-3px;line-height:.95;}
+.faq-list{display:flex;flex-direction:column;border-top:1px solid var(--b);}
+.faq-item{border-bottom:1px solid var(--b);}
+.faq-q{padding:24px 0;display:flex;align-items:center;justify-content:space-between;gap:24px;cursor:pointer;font-size:16px;font-weight:600;color:var(--fg);transition:color .2s;}
+.faq-q:hover{color:var(--fg);}
+.faq-q-arrow{flex-shrink:0;width:18px;height:18px;border:1px solid var(--b2);border-radius:50%;display:flex;align-items:center;justify-content:center;transition:transform .3s,background .3s;}
+.faq-q-arrow::before{content:'';width:8px;height:8px;background-image:url("data:image/svg+xml,%3Csvg width='8' height='8' viewBox='0 0 8 8' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M2 3L4 5L6 3' stroke='%23f0ede8' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round' fill='none'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center;}
+.faq-item.open .faq-q-arrow{transform:rotate(180deg);background:rgba(240,237,232,.08);}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.16,1,.3,1);}
+.faq-item.open .faq-a{max-height:300px;}
+.faq-a-inner{padding:0 0 24px 0;font-size:14px;color:var(--m2);line-height:1.75;max-width:760px;}
+
+/* CTA */
+.cta-wrap{position:relative;z-index:2;padding:120px 48px;}
+.cta-inner{max-width:1300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:start;}
+.cta-title{font-size:clamp(40px,5vw,68px);font-weight:700;letter-spacing:-3px;line-height:.95;margin-bottom:24px;}
+.cta-sub{color:var(--m2);font-size:15px;max-width:400px;line-height:1.75;margin-bottom:32px;}
+.cta-detail{display:flex;flex-direction:column;gap:10px;}
+.cta-detail div{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--m);letter-spacing:.5px;}
+.cta-detail div::before{content:'✓  ';color:var(--acc);}
+.cta-form-full{display:flex;flex-direction:column;gap:12px;}
+.cta-row{display:flex;gap:12px;}
+.cta-row .cta-input{flex:1;}
+.cta-input{padding:14px 18px;background:rgba(240,237,232,.05);border:1px solid var(--b);border-radius:3px;color:var(--fg);font-size:14px;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;outline:none;transition:border-color .2s,background .2s;width:100%;}
+.cta-input:focus{border-color:rgba(240,237,232,.28);background:rgba(240,237,232,.07);}
+.cta-input::placeholder{color:var(--m);}
+.cta-textarea{resize:vertical;min-height:100px;}
+.cta-btn{padding:16px 28px;background:var(--fg);color:var(--bg);font-size:14px;font-weight:700;border:none;border-radius:3px;letter-spacing:.3px;position:relative;overflow:hidden;transition:opacity .2s;width:100%;cursor:pointer;}
+.cta-btn::after{content:'';position:absolute;inset:0;background:rgba(6,6,6,.1);transform:translateX(-100%);transition:transform .4s cubic-bezier(.16,1,.3,1);}
+.cta-btn:hover::after{transform:translateX(0);}
+.cta-note{font-size:12px;color:var(--m);font-family:'JetBrains Mono',monospace;letter-spacing:.5px;margin-top:4px;}
+
+/* FOOTER */
+footer{position:relative;z-index:2;padding:32px 48px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:24px;border-top:1px solid var(--b);}
+.f-left{display:flex;flex-direction:column;gap:10px;}
+.f-logo{font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700;}
+.f-contact a{font-size:12px;color:var(--m);text-decoration:none;transition:color .2s;font-family:'JetBrains Mono',monospace;}
+.f-contact a:hover{color:var(--fg);}
+.f-links{display:flex;gap:24px;}
+.f-links a{font-size:12px;color:var(--m);text-decoration:none;transition:color .2s;}
+.f-links a:hover{color:var(--fg);}
+.f-right{display:flex;flex-direction:column;gap:10px;align-items:flex-end;}
+.f-socials{display:flex;gap:16px;}
+.f-socials a{font-size:12px;color:var(--m);text-decoration:none;transition:color .2s;}
+.f-socials a:hover{color:var(--fg);}
+.f-copy{font-size:11px;color:var(--m);font-family:'JetBrains Mono',monospace;}
+
+/* REVEALS */
+.r{opacity:0;transform:translateY(32px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.r.on{opacity:1;transform:none;}
+.r2{opacity:0;transform:translateX(-28px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1);}
+.r2.on{opacity:1;transform:none;}
+[data-delay]{transition-delay:var(--d);}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  .stats-grid{grid-template-columns:repeat(2,1fr);}
+  .inv-inner{grid-template-columns:1fr;}
+  .inv-right{position:static;}
+  .comparison{grid-template-columns:1fr;gap:24px;}
+  .comp-divider{display:none;}
+}
+@media(max-width:900px){
+  .pricing-grid{grid-template-columns:1fr;}
+}
+@media(max-width:768px){
+  nav{padding:0 20px;}
+  .nla{display:none;}
+  .nl-sub{display:none;}
+  .nl img{height:22px;}
+  .hero{padding:104px 20px 32px;min-height:calc(100svh - 132px);justify-content:center;}
+  .hero-headline h1{letter-spacing:-2px;font-size:clamp(40px,12vw,60px);}
+  .rotating-line{white-space:nowrap;}
+  .hero-eyebrow{margin-bottom:20px;}
+  .het{font-size:9px;letter-spacing:2px;}
+  .hero-bottom{margin-top:32px;gap:0;flex-direction:column;align-items:stretch;}
+  .hero-desc p{font-size:14px;line-height:1.65;margin-bottom:24px;}
+  .hero-cta{width:100%;justify-content:center;padding:18px 32px;font-size:15px;border-radius:4px;}
+  .hero-cta-secondary{margin-left:0;margin-top:16px;justify-content:center;display:flex;}
+  .lhero{padding:80px 20px 0;}
+  .lhero-top{flex-direction:column;gap:28px;}
+  .lhero-left h2{letter-spacing:-2px;}
+  .lhero-callout{max-width:100%;}
+  .stats-wrap{padding:64px 20px;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .stat-item{padding:28px 0 28px 20px;}
+  .svc-section{padding:80px 0;}
+  .svc-section-head{padding:0 20px 48px;}
+  .svc-band{grid-template-columns:1fr;padding:32px 20px;}
+  .svc-band-num{font-size:clamp(56px,14vw,72px);letter-spacing:-2px;margin-bottom:16px;}
+  .inv-inner{padding:80px 20px;}
+  .pricing-sec{padding:80px 20px;}
+  .pricing-grid{gap:16px;}
+  .pc{padding:32px 24px;}
+  .comparison{padding:24px;}
+  .faq-sec{padding:80px 20px;}
+  .cta-wrap{padding:80px 20px;}
+  .cta-inner{grid-template-columns:1fr;gap:48px;}
+  .cta-row{flex-direction:column;}
+  .f-right{align-items:flex-start;}
+  footer{padding:24px 20px;}
+}
+</style>
+</head>
+<body>
+
+<canvas id="bc"></canvas>
+<div id="wrapper">
+<div id="prog"></div>
+
+<nav id="nav">
+  <a href="https://zenithintelligence.ai" class="nl">
+    <img src="[ZENITH].png" alt="Zenith Intelligence"/>
+    <span class="nl-sub">AI Frontdesk</span>
+  </a>
+  <div class="nr">
+    <a href="#hoe-het-werkt" class="nla">Hoe het werkt</a>
+    <a href="#pricing" class="nla">Pricing</a>
+    <a href="#faq" class="nla">FAQ</a>
+    <a href="#contact" class="nb mag-btn">Plan demo →</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <div class="heb"></div>
+    <span class="het" id="htag">AI FRONTDESK · NU LIVE · WHATSAPP</span>
+  </div>
+  <div class="hero-headline">
+    <h1 id="hero-h1">
+      <span class="hero-line" data-text="Mis nooit meer">Mis nooit meer</span>
+      <span class="hero-line rotating-line"><span class="rotating-word"></span><span class="rot-caret"></span></span>
+    </h1>
+  </div>
+  <span class="sr-only">Mis nooit meer een afspraak. AI frontdesk via WhatsApp voor kappers en salons.</span>
+  <div class="hero-bottom">
+    <div class="hero-desc">
+      <p>Een AI frontdesk medewerker die afspraken inplant, vragen beantwoordt en herinneringen stuurt via WhatsApp. 24/7. Voor de prijs van 1 dag receptioniste per maand.</p>
+      <a href="#contact" class="hero-cta mag-btn">Plan een gratis demo →</a>
+      <a href="#hoe-het-werkt" class="hero-cta-secondary">Bekijk hoe het werkt</a>
+    </div>
+    <div class="hero-meta">
+      <div class="hero-meta-n">€350<span style="font-size:14px;color:var(--m);">/m</span></div>
+      <div class="hero-meta-l">Vanaf · Starter tier</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="tick-track">
+    <span class="tick-item"><span class="tick-live">●</span> VOOR KAPPERS</span>
+    <span class="tick-item"><span class="tick-live">●</span> VOOR SALONS</span>
+    <span class="tick-item"><span class="tick-live">●</span> VOOR BARBERSHOPS</span>
+    <span class="tick-item">24/7 BESCHIKBAAR</span>
+    <span class="tick-item">WHATSAPP BUSINESS</span>
+    <span class="tick-item">NEDERLANDS · ENGELS · 50+ TALEN</span>
+    <span class="tick-item">GEEN APP NODIG</span>
+    <span class="tick-item">PILOT 50% KORTING</span>
+    <span class="tick-item"><span class="tick-live">●</span> VOOR KAPPERS</span>
+    <span class="tick-item"><span class="tick-live">●</span> VOOR SALONS</span>
+    <span class="tick-item"><span class="tick-live">●</span> VOOR BARBERSHOPS</span>
+    <span class="tick-item">24/7 BESCHIKBAAR</span>
+    <span class="tick-item">WHATSAPP BUSINESS</span>
+    <span class="tick-item">NEDERLANDS · ENGELS · 50+ TALEN</span>
+    <span class="tick-item">GEEN APP NODIG</span>
+    <span class="tick-item">PILOT 50% KORTING</span>
+  </div>
+</div>
+
+<!-- LINEAR HERO SECTION + WHATSAPP MOCKUP -->
+<section class="lhero r">
+  <div class="lhero-top">
+    <div class="lhero-left">
+      <h2>De receptioniste<br>die nooit pauze neemt.</h2>
+      <p class="lhero-sub">Klanten WhatsAppen je voor afspraken. Jij staat met je handen in iemands haar. Elke gemiste reactie = een verloren afspraak. De AI frontdesk lost het op.</p>
+      <a href="#contact" class="lhero-cta mag-btn">Plan een gratis demo →</a>
+    </div>
+    <div class="lhero-callout">
+      <div class="lhero-dot"></div>
+      <div>
+        <div class="lhero-callout-label">Pilot programma actief</div>
+        <a href="#pricing" class="lhero-callout-link">50% korting eerste 3 maanden →</a>
+      </div>
+    </div>
+  </div>
+  <div class="wa-wrap r" style="--d:.2s">
+    <div class="wa-phone">
+      <div class="wa-header">
+        <div class="wa-avatar">M</div>
+        <div>
+          <div class="wa-h-name">Salon Mila</div>
+          <div class="wa-h-status">online · AI frontdesk</div>
+        </div>
+      </div>
+      <div class="wa-body" id="wa-body">
+        <!-- messages injected by JS -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-wrap" id="stats">
+  <div class="stats-inner">
+    <div class="stats-top r">
+      <h2>Cijfers die<br/>tellen</h2>
+      <p>Gemiddelden over salons in Nederland. Niet onze marketing, gewoon de realiteit.</p>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-item r" style="--d:.0s"><div class="stat-n"><span class="cu" data-t="8">8</span>+</div><div class="stat-l">Gemiste afspraken<br/>per salon per week</div></div>
+      <div class="stat-item r" style="--d:.1s"><div class="stat-n">€<span class="cu" data-t="900">900</span></div><div class="stat-l">Verloren omzet<br/>per maand</div></div>
+      <div class="stat-item r" style="--d:.2s"><div class="stat-n"><span class="cu" data-t="60">60</span>%</div><div class="stat-l">Minder no-shows<br/>met reminders</div></div>
+      <div class="stat-item r" style="--d:.3s"><div class="stat-n">24/7</div><div class="stat-l">Beschikbaar,<br/>ook 's nachts</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES / WAT DOET DE AGENT -->
+<section class="svc-section">
+  <div class="svc-section-head r">
+    <div><div class="sec-tag" style="color:var(--m2);">Capabilities</div><h2>Wat de agent<br/>voor je doet</h2></div>
+    <p>Niet alles. Geen complexe medische adviezen of klachten. Wel: 90% van wat je elke dag herhaalt. Je houdt zelf altijd controle.</p>
+  </div>
+  <div class="svc-bands">
+    <div class="svc-band r" style="--d:.0s">
+      <div class="svc-band-num">01</div>
+      <div class="svc-band-content">
+        <div class="svc-band-label">Booking</div>
+        <div class="svc-band-title">Plant afspraken in jouw agenda</div>
+        <p class="svc-band-desc">"Morgen om 14u knippen" wordt direct geboekt. Werkt met Google Calendar, Salonized en Treatwell. Voor multi-staff salons: routeert naar de juiste medewerker met de juiste skill.</p>
+        <span class="svc-band-tag">Natural language · Multi-staff · Google Calendar</span>
+      </div>
+    </div>
+    <div class="svc-band r" style="--d:.08s">
+      <div class="svc-band-num">02</div>
+      <div class="svc-band-content">
+        <div class="svc-band-label">FAQ</div>
+        <div class="svc-band-title">Beantwoordt vragen direct</div>
+        <p class="svc-band-desc">Openingstijden, prijzen, behandelduur, parkeren, route, wat te doen voor je komt. Top 5 vragen zijn 90% van inbound. Allemaal direct beantwoord in jouw stijl.</p>
+        <span class="svc-band-tag">Nederlands · Engels · 50+ talen</span>
+      </div>
+    </div>
+    <div class="svc-band r" style="--d:.16s">
+      <div class="svc-band-num">03</div>
+      <div class="svc-band-content">
+        <div class="svc-band-label">Reminders</div>
+        <div class="svc-band-title">Stuurt automatische herinneringen</div>
+        <p class="svc-band-desc">24u van tevoren een vriendelijke ping. Klanten kunnen direct verzetten of bevestigen. Vermindert no-shows met gemiddeld 60%. Werkt op de achtergrond zonder dat jij er iets voor doet.</p>
+        <span class="svc-band-tag">Auto-send · Klant kan verzetten · No-show -60%</span>
+      </div>
+    </div>
+    <div class="svc-band r" style="--d:.24s">
+      <div class="svc-band-num">04</div>
+      <div class="svc-band-content">
+        <div class="svc-band-label">Handover</div>
+        <div class="svc-band-title">Schakelt door als het moet</div>
+        <p class="svc-band-desc">Twijfelt de agent? Krijg jij een ping. Klacht, allergie, speciale wens, bruiloft styling -- altijd jij. Je houdt 100% controle, de agent vervangt geen menselijke aandacht waar het telt.</p>
+        <span class="svc-band-tag">Smart trigger · WhatsApp notificatie · Jij beslist</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOE HET WERKT - INVERTED -->
+<div class="inv-sec" id="hoe-het-werkt">
+  <div class="inv-inner">
+    <div class="r2">
+      <div class="sec-tag">Hoe het werkt</div>
+      <h2 class="inv-h2">Live binnen<br/>2 weken.</h2>
+      <p class="inv-sub">Geen lange trajecten. Geen leercurve. Geen app voor jouw klanten. Gewoon WhatsApp -- waar ze al zijn.</p>
+      <div class="inv-steps">
+        <div class="inv-step"><div class="inv-sn">01 /</div><div><div class="inv-s-title">Intake (1 uur)</div><div class="inv-s-desc">We leren de agent jouw salon kennen. Behandelingen, prijzen, agenda, FAQ. Wij doen het werk, jij vertelt.</div></div></div>
+        <div class="inv-step"><div class="inv-sn">02 /</div><div><div class="inv-s-title">Setup (1-2 weken)</div><div class="inv-s-desc">We koppelen WhatsApp Business aan jouw salon. Agenda integratie, templates goedgekeurd, getest met sandbox.</div></div></div>
+        <div class="inv-step"><div class="inv-sn">03 /</div><div><div class="inv-s-title">Live (zelfde week)</div><div class="inv-s-desc">Agent gaat 24/7 aan. Je krijgt elke avond een digest. Bijstellen kan altijd op basis van eerste gesprekken.</div></div></div>
+        <div class="inv-step"><div class="inv-sn">04 /</div><div><div class="inv-s-title">Jij doet wat je goed kan</div><div class="inv-s-desc">Knippen, kleuren, styling. Wij doen de receptie. Maandelijks check-in om te optimaliseren.</div></div></div>
+      </div>
+    </div>
+    <div class="inv-right r">
+      <div class="inv-terminal">
+        <div class="inv-tbar"><div class="dot dot-r"></div><div class="dot dot-y"></div><div class="dot dot-g"></div><div class="inv-ttitle">salon-mila ~ live</div></div>
+        <div class="inv-tbody">
+          <div class="tl"><span class="tp">›</span><span class="tc2"> [12:47] Klant: "Heb je morgen plek voor knippen?"</span></div>
+          <div class="tl"><span class="tm">›</span><span class="to"> Agent: Slot gevonden 14:00 · €48 · bevestig?</span></div>
+          <div class="tl"><span class="tp">›</span><span class="tc2"> [12:47] Klant: "Ja graag"</span></div>
+          <div class="tl"><span class="tm">›</span><span class="to"> ✓ Geboekt · bevestiging verstuurd</span></div>
+          <div class="tl"><span class="tm">›</span><span class="to"> ✓ Reminder ingepland voor 13:00 morgen</span><span class="blink"></span></div>
+        </div>
+      </div>
+      <div class="inv-metrics">
+        <div class="inv-m"><div class="inv-mn">8<span style="font-size:14px">u</span></div><div class="inv-ml">Per week bespaard</div></div>
+        <div class="inv-m"><div class="inv-mn">3.2<span style="font-size:14px">s</span></div><div class="inv-ml">Gem. responstijd</div></div>
+        <div class="inv-m"><div class="inv-mn">24/7</div><div class="inv-ml">Geen pauze</div></div>
+        <div class="inv-m"><div class="inv-mn">&lt;2w</div><div class="inv-ml">Tot live</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PRICING -->
+<section class="pricing-sec" id="pricing">
+  <div class="pricing-inner">
+    <div class="pricing-head r">
+      <div class="sec-tag">Pricing</div>
+      <h2>Twee tiers.<br/>Geen verrassingen.</h2>
+      <p>Vergelijk het met een receptioniste van €2.800-3.500 per maand. Wij doen 90% van het werk voor een fractie van de prijs.</p>
+      <div class="pricing-pilot">Pilot · 50% korting eerste 3 maanden · 5 plekken</div>
+    </div>
+    <div class="pricing-grid">
+      <div class="pc r" style="--d:.0s">
+        <div class="pc-label">Starter</div>
+        <div class="pc-name">Solo</div>
+        <div class="pc-target">Voor solo kappers en 1-stoel barbershops</div>
+        <div class="pc-price-row">
+          <div class="pc-price">€350</div>
+          <div class="pc-price-unit">/ maand</div>
+        </div>
+        <div class="pc-setup">+ €1.500 eenmalige setup</div>
+        <div class="pc-features">
+          <div class="pc-feat">1 agenda integratie (Google Calendar)</div>
+          <div class="pc-feat">Natural language afspraak booking</div>
+          <div class="pc-feat">Top 5 FAQ automatisch beantwoord</div>
+          <div class="pc-feat">24u herinneringen + bevestigingen</div>
+          <div class="pc-feat">Handover naar jou bij twijfel</div>
+          <div class="pc-feat">Daily digest in WhatsApp</div>
+          <div class="pc-feat pc-feat-off">Multi-staff routing</div>
+          <div class="pc-feat pc-feat-off">Owner dashboard</div>
+        </div>
+        <a href="#contact" class="pc-cta pc-cta-secondary mag-btn">Plan demo →</a>
+      </div>
+      <div class="pc pc-popular r" style="--d:.1s">
+        <div class="pc-label">Salon</div>
+        <div class="pc-name">Salon</div>
+        <div class="pc-target">Voor salons met 3-8 medewerkers</div>
+        <div class="pc-price-row">
+          <div class="pc-price">€650</div>
+          <div class="pc-price-unit">/ maand</div>
+        </div>
+        <div class="pc-setup">+ €2.500 eenmalige setup</div>
+        <div class="pc-features">
+          <div class="pc-feat">Tot 8 agenda's (multi-staff)</div>
+          <div class="pc-feat">Natural language booking + routing</div>
+          <div class="pc-feat">Top FAQ + custom kennisbank</div>
+          <div class="pc-feat">24u herinneringen + bevestigingen</div>
+          <div class="pc-feat">Slimme handover per medewerker</div>
+          <div class="pc-feat">Owner dashboard (web)</div>
+          <div class="pc-feat">Maandelijkse rapportage</div>
+          <div class="pc-feat">Priority support</div>
+        </div>
+        <a href="#contact" class="pc-cta pc-cta-primary mag-btn">Plan demo →</a>
+      </div>
+    </div>
+    <div class="comparison r" style="--d:.2s">
+      <div class="comp-side">
+        <div class="comp-label">Receptioniste fulltime</div>
+        <div class="comp-amount muted">€3.200/m</div>
+        <div class="comp-detail">8u per dag · weekend off · ziek wanneer ziek</div>
+      </div>
+      <div class="comp-divider"></div>
+      <div class="comp-side">
+        <div class="comp-label">AI Frontdesk · Salon tier</div>
+        <div class="comp-amount win">€650/m</div>
+        <div class="comp-detail">24/7 · geen pauze · geen vakantie</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-sec" id="faq">
+  <div class="faq-inner">
+    <div class="faq-head r">
+      <div class="sec-tag">FAQ</div>
+      <h2>Veelgestelde<br/>vragen.</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item r" style="--d:.0s">
+        <div class="faq-q">
+          <span>Werkt dit met mijn huidige agenda?</span>
+          <span class="faq-q-arrow"></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Ja. Google Calendar werkt standaard. Salonized en Treatwell koppelen we tijdens setup. Andere systemen: laat het ons weten tijdens de demo, we checken het.</div></div>
+      </div>
+      <div class="faq-item r" style="--d:.05s">
+        <div class="faq-q">
+          <span>Wat als de agent iets fout zegt of niet weet?</span>
+          <span class="faq-q-arrow"></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Hij stuurt het door naar jou via WhatsApp. Geen risico, geen verkeerde info naar klanten. Jij beslist altijd in twijfelgevallen. De agent leert van elke handover.</div></div>
+      </div>
+      <div class="faq-item r" style="--d:.1s">
+        <div class="faq-q">
+          <span>Kan ik de agent uitzetten?</span>
+          <span class="faq-q-arrow"></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Ja, altijd. Geen lock-in. Maandelijks opzegbaar na de eerste 3 maanden van de pilot.</div></div>
+      </div>
+      <div class="faq-item r" style="--d:.15s">
+        <div class="faq-q">
+          <span>Spreekt de agent goed Nederlands?</span>
+          <span class="faq-q-arrow"></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Vloeiend. Net als Engels en 50+ andere talen. We stemmen tijdens intake de toon af op jouw salon -- formeel of casual, jij kiest.</div></div>
+      </div>
+      <div class="faq-item r" style="--d:.2s">
+        <div class="faq-q">
+          <span>Hoe lang duurt de setup?</span>
+          <span class="faq-q-arrow"></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">1-2 weken vanaf intake tot live. WhatsApp Business approval (door Meta) is het langste deel. Wij doen al het technische werk.</div></div>
+      </div>
+      <div class="faq-item r" style="--d:.25s">
+        <div class="faq-q">
+          <span>Welk WhatsApp nummer wordt gebruikt?</span>
+          <span class="faq-q-arrow"></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Wij regelen een Business nummer voor je. Bestaand nummer porten kan ook -- vereist Meta verificatie en duurt 1-2 weken extra.</div></div>
+      </div>
+      <div class="faq-item r" style="--d:.3s">
+        <div class="faq-q">
+          <span>Is mijn klantdata veilig?</span>
+          <span class="faq-q-arrow"></span>
+        </div>
+        <div class="faq-a"><div class="faq-a-inner">Ja. WhatsApp is end-to-end encrypted. Data wordt opgeslagen in de EU. AVG compliant. We delen niets met derden.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-wrap" id="contact">
+  <div class="cta-inner">
+    <div class="cta-left r">
+      <div class="sec-tag">Contact</div>
+      <h2 class="cta-title">Klaar om geen afspraak meer te missen?</h2>
+      <p class="cta-sub">Plan een gratis 30-min demo. Geen pitch -- we laten zien hoe het werkt voor jouw salon, jij beslist. Pilot plekken vullen snel.</p>
+      <div class="cta-detail">
+        <div>Gratis 30-min demo, geen verplichting</div>
+        <div>Pilot 50% korting voor eerste 5 salons</div>
+        <div>Live binnen 2 weken</div>
+        <div>Maandelijks opzegbaar na pilot</div>
+      </div>
+    </div>
+    <div class="cta-right r" style="--d:.12s">
+      <form class="cta-form-full" onsubmit="handleCtaFull(event)">
+        <div class="cta-row">
+          <input class="cta-input" type="text" placeholder="Jouw naam" id="cta-naam" required/>
+          <input class="cta-input" type="text" placeholder="Salon naam" id="cta-bedrijf" required/>
+        </div>
+        <div class="cta-row">
+          <input class="cta-input" type="email" placeholder="jouw@email.nl" id="cta-email" required/>
+          <input class="cta-input" type="tel" placeholder="06 ..." id="cta-tel"/>
+        </div>
+        <textarea class="cta-input cta-textarea" placeholder="Hoe groot is jullie salon? Wat is jullie grootste pijnpunt? (optioneel)" id="cta-bericht" rows="4"></textarea>
+        <button class="cta-btn mag-btn" type="submit">Plan gratis demo →</button>
+        <div class="cta-note" id="cta-status">We nemen binnen 24 uur contact op.</div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="f-left">
+    <div class="f-logo"><img src="[ZENITH].png" alt="Zenith Intelligence" style="height:22px;width:auto;opacity:.7;"/></div>
+    <div class="f-contact"><a href="mailto:info@zenithintelligence.ai">info@zenithintelligence.ai</a></div>
+  </div>
+  <div class="f-links">
+    <a href="#hoe-het-werkt">Hoe het werkt</a>
+    <a href="#pricing">Pricing</a>
+    <a href="#faq">FAQ</a>
+    <a href="https://zenithintelligence.ai">Zenith Intelligence</a>
+  </div>
+  <div class="f-right">
+    <div class="f-socials">
+      <a href="https://x.com/SamuelDoorenb" target="_blank">X (Twitter)</a>
+    </div>
+    <div class="f-copy">© 2026 Zenith Intelligence · AI Frontdesk</div>
+  </div>
+</footer>
+
+<script>
+// ── PROGRESS ──────────────────────────────────────────
+const prog = document.getElementById('prog');
+function updProg(){ prog.style.width=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight)*100)+'%'; }
+
+// ── NAV SCROLL ────────────────────────────────────────
+const navEl = document.getElementById('nav');
+function updNav(){ navEl.classList.toggle('scrolled', window.scrollY > 80); }
+updNav();
+
+// ── MAGNETIC BUTTONS ──────────────────────────────────
+document.querySelectorAll('.mag-btn').forEach(btn=>{
+  btn.addEventListener('mousemove', e=>{
+    const r=btn.getBoundingClientRect();
+    const cx=r.left+r.width/2, cy=r.top+r.height/2;
+    const dx=e.clientX-cx, dy=e.clientY-cy;
+    btn.style.transform=`translate(${dx*.07}px,${dy*.07}px)`;
+  });
+  btn.addEventListener('mouseleave',()=>{ btn.style.transform=''; });
+});
+
+// ── CONVERGENCE GRID DOTS ──────────────────────────────
+const canvas=document.getElementById('bc'), ctx=canvas.getContext('2d');
+let W,H,gridPts=[];
+let mouseX=-9999,mouseY=-9999;
+const GRID_SPX=44,GRID_R=1.4,GRID_OPB=0.28,GRID_AMP=0.10,GRID_SPD=0.0008;
+const MOUSE_R=180,MOUSE_PUSH=14;
+function initGrid(){
+  gridPts=[];
+  const gc=Math.ceil(W/GRID_SPX)+2,gr=Math.ceil(H/GRID_SPX)+2;
+  const ox=(W-(gc-1)*GRID_SPX)/2,oy=(H-(gr-1)*GRID_SPX)/2;
+  for(let r=0;r<gr;r++) for(let c=0;c<gc;c++)
+    gridPts.push({bx:ox+c*GRID_SPX,by:oy+r*GRID_SPX,ph:Math.random()*Math.PI*2});
+}
+function resz(){
+  W=canvas.width=window.innerWidth;
+  H=canvas.height=window.innerHeight;
+  initGrid();
+}
+function drawGrid(ts){
+  ctx.clearRect(0,0,W,H);
+  const t=(ts||0)*GRID_SPD;
+  ctx.fillStyle='rgba(240,237,232,1)';
+  for(let i=0;i<gridPts.length;i++){
+    const p=gridPts[i];
+    const pulse=GRID_OPB+GRID_AMP*Math.sin(t+p.ph);
+    const dx=p.bx-mouseX,dy=p.by-mouseY,dist=Math.sqrt(dx*dx+dy*dy);
+    let drawX=p.bx,drawY=p.by,alpha=pulse;
+    if(dist<MOUSE_R&&dist>0){
+      const f=1-(dist/MOUSE_R);
+      drawX+=dx/dist*MOUSE_PUSH*f*f;
+      drawY+=dy/dist*MOUSE_PUSH*f*f;
+      alpha=Math.min(pulse*(1+f*.4),.4);
+    }
+    ctx.globalAlpha=Math.min(alpha,.65);
+    ctx.beginPath(); ctx.arc(drawX,drawY,GRID_R,0,Math.PI*2); ctx.fill();
+  }
+  ctx.globalAlpha=1;
+  requestAnimationFrame(drawGrid);
+}
+document.addEventListener('mousemove',e=>{mouseX=e.clientX;mouseY=e.clientY;});
+
+resz();
+requestAnimationFrame(drawGrid);
+window.addEventListener('resize',resz);
+
+// ── CANVAS BLEND ON SCROLL ────────────────────────────
+function blendCanvases(){
+  const blend = Math.min(1, Math.max(0, window.scrollY / (window.innerHeight * 0.75)));
+  canvas.style.opacity = 1 - blend;
+}
+
+// ── HERO CHAR ANIMATION ───────────────────────────────
+function splitChars(){
+  const h1=document.getElementById('hero-h1');
+  let si=0;
+  h1.querySelectorAll('.hero-line').forEach((line)=>{
+    if(line.classList.contains('rotating-line')) return;
+    const txt=line.dataset.text||line.textContent;
+    line.innerHTML='';
+    txt.split('').forEach((ch,ci)=>{
+      const sp=document.createElement('span');
+      sp.className='char'+(ch===' '?' space':'');
+      sp.textContent=ch===' '?' ':ch;
+      sp.style.transitionDelay=(.3+si*.14+ci*.028)+'s';
+      sp.style.transition='opacity .6s cubic-bezier(.16,1,.3,1), transform .6s cubic-bezier(.16,1,.3,1)';
+      line.appendChild(sp);
+    });
+    si++;
+  });
+  setTimeout(()=>{
+    document.querySelectorAll('.char').forEach(sp=>{ sp.style.opacity='1'; sp.style.transform='none'; });
+  },100);
+}
+splitChars();
+
+// ── ROTATING WORD ─────────────────────────────────────
+const rotEl=document.querySelector('.rotating-word');
+const rotLine=document.querySelector('.rotating-line');
+const rotWords=['een afspraak.','een klant.','een booking.','een kans.'];
+let rIdx=0,rChar=0,rDir=1;
+function rotTick(){
+  const word=rotWords[rIdx];
+  if(rDir===1){
+    if(rChar<word.length){rChar++;rotEl.textContent=word.slice(0,rChar);setTimeout(rotTick,42);}
+    else{setTimeout(()=>{rDir=-1;rotTick();},2400);}
+  } else {
+    if(rChar>0){rChar--;rotEl.textContent=word.slice(0,rChar);setTimeout(rotTick,22);}
+    else{rIdx=(rIdx+1)%rotWords.length;rDir=1;setTimeout(rotTick,160);}
+  }
+}
+setTimeout(()=>{rotLine.style.opacity='1';rotTick();},900);
+
+// ── HERO PARALLAX ─────────────────────────────────────
+const heroLines = document.querySelectorAll('#hero-h1 .hero-line');
+const hDepth = [0.018, 0.014];
+const hTX = [0,0], hTY = [0,0];
+let hpMX = window.innerWidth/2, hpMY = window.innerHeight/2;
+document.addEventListener('mousemove', e=>{ hpMX=e.clientX; hpMY=e.clientY; });
+(function hpLoop(){
+  const cx=window.innerWidth/2, cy=window.innerHeight/2;
+  const dx=hpMX-cx, dy=hpMY-cy;
+  heroLines.forEach((line,i)=>{
+    if(!hDepth[i]) return;
+    const tx=dx*hDepth[i], ty=dy*hDepth[i]*.35;
+    hTX[i]+=(tx-hTX[i])*.055; hTY[i]+=(ty-hTY[i])*.055;
+    line.style.transform=`translate(${hTX[i]}px,${hTY[i]}px)`;
+  });
+  requestAnimationFrame(hpLoop);
+})();
+
+// ── HERO SCROLL FADE ──────────────────────────────────
+const heroEl=document.querySelector('.hero');
+function parallax(){
+  const y=window.scrollY;
+  if(y<window.innerHeight){
+    heroEl.style.transform=`translateY(${y*.22}px)`;
+    heroEl.style.opacity=1-(y/(window.innerHeight*.9));
+  }
+}
+
+// ── INTERSECTION OBSERVER ─────────────────────────────
+const io=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add('on'); io.unobserve(e.target); }
+}),{threshold:.07});
+document.querySelectorAll('.r,.r2').forEach(el=>{
+  if(el.style.getPropertyValue('--d')) el.style.transitionDelay=el.style.getPropertyValue('--d');
+  io.observe(el);
+});
+const ioStat=new IntersectionObserver(entries=>entries.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add('on'); ioStat.unobserve(e.target); }
+}),{threshold:.2});
+document.querySelectorAll('.stat-item').forEach(el=>ioStat.observe(el));
+
+// ── COUNT UP ──────────────────────────────────────────
+function countUp(el, delay=0){
+  const t=parseInt(el.dataset.t);
+  setTimeout(()=>{
+    let start=null;
+    function step(ts){
+      if(!start) start=ts;
+      const p=Math.min((ts-start)/700,1);
+      const ease=1-Math.pow(1-p,3);
+      el.textContent=Math.round(ease*t);
+      if(p<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }, delay);
+}
+const ioCu=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const idx=Array.from(document.querySelectorAll('.stat-item')).indexOf(e.target);
+      e.target.querySelectorAll('.cu').forEach(el=>countUp(el, idx*80));
+      ioCu.unobserve(e.target);
+    }
+  });
+},{threshold:.4});
+document.querySelectorAll('.stat-item').forEach(el=>ioCu.observe(el));
+
+// ── HTAG CYCLE ────────────────────────────────────────
+const tags=['AI FRONTDESK · NU LIVE · WHATSAPP','PILOT · 50% KORTING · 5 PLEKKEN','24/7 BEREIKBAAR · GEEN PAUZE','LIVE BINNEN 2 WEKEN'];
+let ti=0;
+setInterval(()=>{ ti=(ti+1)%tags.length; document.getElementById('htag').textContent=tags[ti]; },3200);
+
+// ── WHATSAPP MOCKUP ANIMATION ─────────────────────────
+const waMessages = [
+  {who:'user',text:'Hoi! Heb je morgen plek voor knippen + highlights?',time:'14:32'},
+  {who:'agent',text:'Hoi! Ja zeker, morgen heb ik om 10:00 of 14:00 nog plek. Highlights duurt 3 uur. Wat past beter?',time:'14:32'},
+  {who:'user',text:'14:00 graag!',time:'14:33'},
+  {who:'agent',text:'Top. Mag ik je naam en telefoonnummer?',time:'14:33'},
+  {who:'user',text:'Lisa van der Berg, 0612345678',time:'14:34'},
+  {who:'agent',text:'Even checken: morgen 14:00, knippen + highlights, totaal 3u 45min. €223. Klopt dat?',time:'14:34'},
+  {who:'user',text:'Ja perfect',time:'14:35'},
+  {who:'agent',text:'Geboekt ✓ Je krijgt een bevestiging en een reminder 24u van tevoren. Tot morgen!',time:'14:35'},
+];
+
+const waBody = document.getElementById('wa-body');
+let waIdx = 0;
+let waStarted = false;
+
+function addWaMessage(msg, withTyping = true) {
+  if (withTyping && msg.who === 'agent') {
+    const typing = document.createElement('div');
+    typing.className = 'wa-typing';
+    typing.innerHTML = '<span></span><span></span><span></span>';
+    waBody.appendChild(typing);
+    waBody.scrollTop = waBody.scrollHeight;
+    setTimeout(() => {
+      typing.remove();
+      renderWaBubble(msg);
+    }, 900);
+  } else {
+    renderWaBubble(msg);
+  }
+}
+
+function renderWaBubble(msg) {
+  const bubble = document.createElement('div');
+  bubble.className = 'wa-msg ' + (msg.who === 'user' ? 'wa-msg-user' : 'wa-msg-agent');
+  bubble.style.opacity = '0';
+  bubble.style.transform = 'translateY(8px)';
+  bubble.style.transition = 'opacity .35s ease, transform .35s ease';
+  bubble.innerHTML = `${msg.text}<div class="wa-msg-time">${msg.time}</div>`;
+  waBody.appendChild(bubble);
+  waBody.scrollTop = waBody.scrollHeight;
+  requestAnimationFrame(() => {
+    bubble.style.opacity = '1';
+    bubble.style.transform = 'none';
+  });
+}
+
+function nextWaMessage() {
+  if (waIdx >= waMessages.length) {
+    setTimeout(() => {
+      waBody.innerHTML = '';
+      waIdx = 0;
+      nextWaMessage();
+    }, 5000);
+    return;
+  }
+  const msg = waMessages[waIdx++];
+  addWaMessage(msg, true);
+  const delay = msg.who === 'user' ? 1400 : 2200;
+  setTimeout(nextWaMessage, delay);
+}
+
+const ioWa = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting && !waStarted) {
+      waStarted = true;
+      setTimeout(nextWaMessage, 600);
+      ioWa.disconnect();
+    }
+  });
+}, { threshold: .3 });
+ioWa.observe(document.querySelector('.wa-wrap'));
+
+// ── FAQ ACCORDION ─────────────────────────────────────
+document.querySelectorAll('.faq-item').forEach(item => {
+  item.querySelector('.faq-q').addEventListener('click', () => {
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+// ── SCROLL HANDLER ────────────────────────────────────
+window.addEventListener('scroll',()=>{ updProg(); updNav(); parallax(); blendCanvases(); },{passive:true});
+blendCanvases();
+
+// ── CTA FORM ──────────────────────────────────────────
+async function handleCtaFull(event){
+  event.preventDefault();
+  const naam=document.getElementById('cta-naam').value;
+  const bedrijf=document.getElementById('cta-bedrijf').value;
+  const email=document.getElementById('cta-email').value;
+  const tel=document.getElementById('cta-tel').value;
+  const bericht=document.getElementById('cta-bericht').value;
+  const btn=document.querySelector('.cta-btn');
+  const status=document.getElementById('cta-status');
+  btn.textContent='Versturen...';
+  btn.disabled=true;
+  try {
+    const res=await fetch('https://formspree.io/f/xdawdnnz',{
+      method:'POST',
+      headers:{'Content-Type':'application/json','Accept':'application/json'},
+      body:JSON.stringify({naam,bedrijf,email,tel,bericht,source:'frontdesk-landing'})
+    });
+    if(res.ok){
+      btn.textContent='Verzonden ✓';
+      status.textContent='We nemen binnen 24 uur contact op!';
+      status.style.color='var(--acc)';
+      document.getElementById('cta-naam').value='';
+      document.getElementById('cta-bedrijf').value='';
+      document.getElementById('cta-email').value='';
+      document.getElementById('cta-tel').value='';
+      document.getElementById('cta-bericht').value='';
+    } else {
+      btn.textContent='Plan gratis demo →';
+      btn.disabled=false;
+      status.textContent='Er ging iets mis. Probeer het opnieuw.';
+      status.style.color='rgba(255,100,100,.7)';
+    }
+  } catch(e){
+    btn.textContent='Plan gratis demo →';
+    btn.disabled=false;
+    status.textContent='Er ging iets mis. Probeer het opnieuw.';
+    status.style.color='rgba(255,100,100,.7)';
+  }
+}
+</script>
+</div><!-- /#wrapper -->
+</body>
+</html>
